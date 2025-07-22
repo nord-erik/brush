@@ -1,0 +1,20 @@
+name: ci-hook
+on:
+  push:
+    branches: [ "huve" ]
+  pull_request:
+    branches: [ "huve" ]
+
+  # allows running this workflow manually from the actions tab
+  workflow_dispatch:
+
+jobs:
+  hook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: do the hook
+        run: |
+          sudo apt update
+          sudo apt install shfmt shellcheck
+          ./hook.sh
