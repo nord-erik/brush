@@ -10,7 +10,7 @@ sxt_verify() {
   if [ "$code" != "0" ]; then
     echo "FAIL    ::::    $test_file_name # $test_name"
   else
-    echo "ok $test_file_name # $test_name"
+    echo "ok .... $test_file_name"
   fi
 }
 
