@@ -4,9 +4,13 @@
 
 sx_check() {
   local code=$1
+  local msg=$2
 
   if [ $code -ne 0 ]; then
-    echo "error">&2
+    if [ -n "$msg" ]; then
+      echo "$msg">&2
+    fi
+
     exit 1
   fi
 

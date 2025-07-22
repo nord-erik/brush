@@ -38,10 +38,43 @@ expect_random_to_be_nok() {
   random_value_was=$?
   # shellcheck disable=SC2091
   $(sx_check $random_value_was) || did_exit=0
-  sxt_verify $did_exit $FIXTURE_NAME "check_works_on_rand ($random_value_was)"
+  sxt_verify $did_exit $FIXTURE_NAME "check_works_on_rand_($random_value_was)"
+}
+
+expect_no_message_to_print_nothing() {
+  buf_err=$( (sx_check 1) 2>&1)
+  test -z "$buf_err"
+  sxt_verify $? $FIXTURE_NAME "no_message_when_no_message"
+}
+
+expect_message_to_print() {
+  buf_err=$( (sx_check 1 "error") 2>&1)
+  test -n "$buf_err"
+  sxt_verify $? $FIXTURE_NAME "a_message_when_message"
+}
+
+expect_message_to_be_stderr() {
+  buf_out=$( (sx_check 1 "error"))
+  buf_err=$( (sx_check 1 "error") 2>&1)
+  test -z "$buf_out" && test -n "$buf_err"
+  sxt_verify $? $FIXTURE_NAME "messages_sent_to_stderr"
+}
+
+expect_message_to_be_equal() {
+  message="it should be possible to pass a proper string"
+  buf_err=$( (sx_check 1 "$message") 2>&1)
+  test "$message" = "$buf_err"
+  sxt_verify $? $FIXTURE_NAME "messages_are_equal_to_sent_argumetn"
 }
 
 # run the tests
+# error codes
 expect_0_to_be_ok
 expect_1_to_be_nok
 expect_random_to_be_nok
+
+# messages
+expect_no_message_to_print_nothing
+expect_message_to_print
+expect_message_to_be_stderr
+expect_message_to_be_equal
