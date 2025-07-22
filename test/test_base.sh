@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$TEST_ROOT/../sx/shmoo.sh"
+source "$TEST_ROOT/../shmoo.sh"
 
 sxt_verify() {
   code=$1
