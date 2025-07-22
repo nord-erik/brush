@@ -1,0 +1,3 @@
+# this error happens when you source a file
+# and the recommended solution is to disable the warning
+disable=SC1091
