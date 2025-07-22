@@ -11,5 +11,5 @@ test_err_function_is_defined() {
   sxt_verify $? $FIXTURE_NAME "fn_${fn}_defined"
 }
 
-test_err_function_is_defined check
-test_err_function_is_defined try
+test_err_function_is_defined sx_check
+test_err_function_is_defined sx_try

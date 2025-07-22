@@ -1,5 +1,5 @@
 #!/bin/bash
 
-sx_check() {
+sx_try() {
   echo "TODO: implement"
 }

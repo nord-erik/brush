@@ -4,3 +4,4 @@ SX_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 export SX_ROOT
 
 source "$SX_ROOT/err/check.sh"
+source "$SX_ROOT/err/try.sh"
