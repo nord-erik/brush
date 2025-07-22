@@ -9,6 +9,7 @@ sxt_verify() {
   test_file_name=$2
   test_name=$3
 
+  # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
     echo "FAIL    ::::    $test_file_name # $test_name"
   else

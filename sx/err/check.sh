@@ -6,6 +6,7 @@ sx_check() {
   local code=$1
   local msg=$2
 
+  # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
     if [ -n "$msg" ]; then
       echo "$msg">&2

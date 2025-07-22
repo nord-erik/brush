@@ -48,14 +48,14 @@ expect_no_message_to_print_nothing() {
 }
 
 expect_message_to_print() {
-  buf_err=$( (sx_check 1 "error") 2>&1)
+  buf_err=$( (sx_check 1 "deliberate testing error") 2>&1)
   test -n "$buf_err"
   sxt_verify $? $FIXTURE_NAME "a_message_when_message"
 }
 
 expect_message_to_be_stderr() {
-  buf_out=$( (sx_check 1 "error"))
-  buf_err=$( (sx_check 1 "error") 2>&1)
+  buf_out=$( (sx_check 1 "deliberate testing error") 2>/dev/null)
+  buf_err=$( (sx_check 1 "deliberate testing error") 2>&1 1>/dev/null)
   test -z "$buf_out" && test -n "$buf_err"
   sxt_verify $? $FIXTURE_NAME "messages_sent_to_stderr"
 }

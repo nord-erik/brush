@@ -12,7 +12,6 @@ source "$SX_ROOT/log/warn.sh"
 
 # error checking components
 source "$SX_ROOT/err/check.sh"
-source "$SX_ROOT/err/try.sh"
 
 # guards
 source "$SX_ROOT/guard/is_command.sh"
