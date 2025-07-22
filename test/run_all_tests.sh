@@ -5,4 +5,5 @@ export TEST_ROOT
 
 "$TEST_ROOT"/log/test_log.sh
 "$TEST_ROOT"/err/test_err.sh
+"$TEST_ROOT"/err/test_err_check.sh
 "$TEST_ROOT"/guard/test_guard.sh
