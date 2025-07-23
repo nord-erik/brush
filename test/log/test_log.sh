@@ -5,7 +5,7 @@ source "$TEST_ROOT/test_base.sh"
 
 # make sure log fns are defined
 test_log_function_is_defined() {
-  fn=$1
+  local fn=$1
 
   sxt_assert_function_defined "$fn"
   sxt_verify $? $FIXTURE_NAME "fn_${fn}_defined"

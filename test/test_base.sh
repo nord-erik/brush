@@ -11,9 +11,9 @@ NAME="shmoth-test-app"
 source "$TEST_ROOT/../shmoo.sh" "$NAME"
 
 sxt_verify() {
-  code=$1
-  test_file_name=$2
-  test_name=$3
+  local code=$1
+  local test_file_name=$2
+  local test_name=$3
 
   # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
@@ -26,7 +26,7 @@ sxt_verify() {
 }
 
 sxt_assert_function_defined() {
-  fn=$1
+  local fn=$1
 
   if [ "$(type -t "$fn")" = "function" ]; then
     return 0

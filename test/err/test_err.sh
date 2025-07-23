@@ -23,6 +23,7 @@ expect_0_to_be_ok() {
 }
 
 expect_1_to_be_nok() {
+  local did_exit
   # capture the exit, set to 0 if exit happened
   did_exit=1
   mock_process_1
@@ -32,6 +33,9 @@ expect_1_to_be_nok() {
 }
 
 expect_random_to_be_nok() {
+  local did_exit
+  local random_value_was
+
   # capture the exit, set to 0 if exit happened
   did_exit=1
   mock_process_rand
@@ -42,18 +46,25 @@ expect_random_to_be_nok() {
 }
 
 expect_no_message_to_print_nothing() {
+  local buf_err
+
   buf_err=$( (sx_check 1) 2>&1)
   test -z "$buf_err"
   sxt_verify $? $FIXTURE_NAME "no_message_when_no_message"
 }
 
 expect_message_to_print() {
+  local buf_err
+
   buf_err=$( (sx_check 1 "deliberate testing error") 2>&1)
   test -n "$buf_err"
   sxt_verify $? $FIXTURE_NAME "a_message_when_message"
 }
 
 expect_message_to_be_stderr() {
+  local buf_out
+  local buf_err
+
   buf_out=$( (sx_check 1 "deliberate testing error") 2> /dev/null)
   buf_err=$( (sx_check 1 "deliberate testing error") 2>&1 1> /dev/null)
   test -z "$buf_out" && test -n "$buf_err"
@@ -61,6 +72,9 @@ expect_message_to_be_stderr() {
 }
 
 expect_message_to_be_equal() {
+  local message
+  local buf_err
+
   message="it should be possible to pass a proper string"
   buf_err=$( (sx_check 1 "$message") 2>&1)
   test "$message" = "$buf_err"
