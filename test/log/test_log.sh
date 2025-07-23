@@ -15,19 +15,44 @@ expect_log_to_actually_log() {
   local logger_under_test=$1
   local message=$2
   local expected=$3
-  local actual
+  local actual_terminal actual_log keyword
 
-  actual=$($logger_under_test "$message")
-  journalctl --reverse | head -5 | grep --quiet "$message"
+  case $logger_under_test in
+    sx_error)
+      keyword="(ERROR) "
+      ;;
+    sx_warn)
+      keyword="(WARNING) "
+      ;;
+    sx_notice)
+      keyword="(NOTICE) "
+      ;;
+    sx_log)
+      keyword="(INFO) "
+      ;;
+    *)
+      keyword="unknown_logger_under_test"
+      ;;
+  esac
+
+  actual_terminal=$($logger_under_test "$message")
+  actual_log="$(journalctl --reverse | head -1)"
+  echo "$actual_log" | grep --quiet "$keyword$message"
   sxt_verify $? $FIXTURE_NAME "${logger_under_test}_can_log_properly"
-
-  test "$actual" = "$expected"
-  sxt_verify $? $FIXTURE_NAME "${logger_under_test}_can_produce_proper_log_message"
 
   # shellcheck disable=SC2181
   if [ $? -ne 0 ]; then
-    echo "got:  $actual"
-    echo "want: $expected"
+    echo "got:  [$actual_log]"
+    echo "want: [$keyword$message]"
+  fi
+
+  test "$actual_terminal" = "$expected"
+  sxt_verify $? $FIXTURE_NAME "${logger_under_test}_can_produce_proper_terminal_message"
+
+  # shellcheck disable=SC2181
+  if [ $? -ne 0 ]; then
+    echo "got:  [$actual_terminal]"
+    echo "want: [$expected]"
   fi
 
 }
