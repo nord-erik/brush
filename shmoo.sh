@@ -12,6 +12,9 @@ fi
 
 export SX_APP_NAME
 
+# global variable
+source "$SX_ROOT/consts.sh"
+
 # logging components
 source "$SX_ROOT/log/error.sh"
 source "$SX_ROOT/log/info.sh"

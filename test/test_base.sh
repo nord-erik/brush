@@ -17,10 +17,10 @@ sxt_verify() {
 
   # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
-    echo "FAIL    ::::    $test_file_name # $test_name"
+    echo -e "${SXC_RED}FAIL    ::::${SXC_CLEAR}    $test_file_name # $test_name"
   else
     if [ $VERBOSE -eq 1 ]; then
-      echo "ok .... $test_file_name"
+      echo -e "${SXC_GREEN}OK${SXC_CLEAR} $test_file_name / $test_name"
     fi
   fi
 }
