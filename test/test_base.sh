@@ -6,7 +6,7 @@ if [ "$SXT_IS_BASE_SOURCED" = "true" ]; then
 fi
 
 VERBOSE=1
-NAME="shmoth-test-app"
+NAME="shmoothTestRunner"
 
 source "$TEST_ROOT/../shmoo.sh" "$NAME"
 
@@ -40,6 +40,8 @@ sxt_verify() {
       __sxt_report_test_ok "$test_file_name" "$test_name"
     fi
   fi
+
+  return "$code"
 }
 
 sxt_assert_function_defined() {

@@ -16,10 +16,7 @@ export SX_APP_NAME
 source "$SX_ROOT/consts.sh"
 
 # logging components
-source "$SX_ROOT/log/error.sh"
-source "$SX_ROOT/log/info.sh"
-source "$SX_ROOT/log/log.sh"
-source "$SX_ROOT/log/warn.sh"
+source "$SX_ROOT/log/logger.sh"
 
 # error checking components
 source "$SX_ROOT/err/check.sh"
