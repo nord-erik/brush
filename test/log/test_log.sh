@@ -18,32 +18,32 @@ expect_log_to_actually_log() {
   local actual_terminal actual_log keyword
 
   case $logger_under_test in
-    sx_error)
-      keyword="(ERROR) "
-      ;;
-    sx_warn)
-      keyword="(WARNING) "
-      ;;
-    sx_notice)
-      keyword="(NOTICE) "
-      ;;
-    sx_log)
-      keyword="(INFO) "
-      ;;
-    *)
-      keyword="unknown_logger_under_test"
-      ;;
+  sx_error)
+    keyword="(ERROR)"
+    ;;
+  sx_warn)
+    keyword="(WARNING)"
+    ;;
+  sx_notice)
+    keyword="(NOTICE)"
+    ;;
+  sx_log)
+    keyword="(INFO)"
+    ;;
+  *)
+    keyword="unknown_logger_under_test"
+    ;;
   esac
 
   actual_terminal=$($logger_under_test "$message")
   actual_log="$(journalctl --reverse | head -1)"
-  echo "$actual_log" | grep --quiet "$keyword$message"
+  echo "$actual_log" | grep --quiet "$keyword $message"
   sxt_verify $? $FIXTURE_NAME "${logger_under_test}_can_log_properly"
 
   # shellcheck disable=SC2181
   if [ $? -ne 0 ]; then
     echo "got:  [$actual_log]"
-    echo "want: [$keyword$message]"
+    echo "want: [$keyword $message]"
   fi
 
   test "$actual_terminal" = "$expected"

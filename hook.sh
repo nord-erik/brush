@@ -34,6 +34,8 @@ shfmt --space-redirects --diff --indent 2 .
 if test $? -ne 0; then
   echo ""
   echo "error - check formatter issues"
+  echo "        if you agree with all, quickly apply with"
+  echo "        shfmt --space-redirects --write --indent 2 ."
   exit 3
 fi
 
