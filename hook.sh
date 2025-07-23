@@ -13,13 +13,13 @@ cd "$HOOK_ROOT" || exit 112
 
 if ! command -v shellcheck > /dev/null 2>&1; then
   echo ""
-  echo "command 'shellcheck' missing please install it"
+  echo "error - command 'shellcheck' missing please install it"
   exit 1
 fi
 
 if ! command -v shfmt > /dev/null 2>&1; then
   echo ""
-  echo "command 'shfmt' missing please install it"
+  echo "error - command 'shfmt' missing please install it"
   exit 1
 fi
 
