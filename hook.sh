@@ -9,6 +9,7 @@
 #   4 => tests fail
 
 HOOK_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+cd "$HOOK_ROOT" || exit 112
 
 if ! command -v shellcheck > /dev/null 2>&1; then
   echo ""
@@ -44,6 +45,6 @@ if echo "$test_log" | grep -q "FAIL"; then
   exit 4
 fi
 
-if [ "$1" != "SILENCE" ]; then
+if [ "$1" != "SILENT" ]; then
   echo "HOOK SUCCESS WITH EXIT CODE: 0"
 fi

@@ -14,6 +14,4 @@ sx_check() {
 
     exit 1
   fi
-
-  exit 0
 }
