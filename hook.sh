@@ -29,7 +29,9 @@ if ! find . -type f -name "*.sh" -exec shellcheck -- {} +; then
   exit 2
 fi
 
-if ! shfmt --space-redirects --diff --indent 2 . > /dev/null; then
+shfmt --space-redirects --diff --indent 2 .
+
+if test $? -ne 0; then
   echo ""
   echo "error - check formatter issues"
   exit 3
