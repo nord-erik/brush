@@ -10,6 +10,23 @@ NAME="shmoth-test-app"
 
 source "$TEST_ROOT/../shmoo.sh" "$NAME"
 
+# report that a test has failed
+__sxt_report_test_fail() {
+  local test_file_name=$1
+  local test_name=$2
+
+  echo -e "${SXC_RED}FAIL    ::::${SXC_CLEAR}    $test_file_name # $test_name"
+}
+
+# report that a test has passed
+__sxt_report_test_ok() {
+  local test_file_name=$1
+  local test_name=$2
+
+  echo -e "${SXC_GREEN}OK${SXC_CLEAR} $test_file_name / $test_name"
+}
+
+# assert code is 0 => test pass, if other => test fail
 sxt_verify() {
   local code=$1
   local test_file_name=$2
@@ -17,10 +34,10 @@ sxt_verify() {
 
   # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
-    echo -e "${SXC_RED}FAIL    ::::${SXC_CLEAR}    $test_file_name # $test_name"
+    __sxt_report_test_fail "$test_file_name" "$test_name"
   else
     if [ $VERBOSE -eq 1 ]; then
-      echo -e "${SXC_GREEN}OK${SXC_CLEAR} $test_file_name / $test_name"
+      __sxt_report_test_ok "$test_file_name" "$test_name"
     fi
   fi
 }
