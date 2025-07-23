@@ -1,8 +1,14 @@
 #!/bin/bash
 
-VERBOSE=1
+# if any other script already sourced this, then skip doing it again
+if [ "$SXT_IS_BASE_SOURCED" = "true" ]; then
+  return 0
+fi
 
-source "$TEST_ROOT/../shmoo.sh"
+VERBOSE=1
+NAME="shmoth-test-app"
+
+source "$TEST_ROOT/../shmoo.sh" "$NAME"
 
 sxt_verify() {
   code=$1
@@ -28,3 +34,10 @@ sxt_assert_function_defined() {
 
   return 1
 }
+
+# verify that app name is propagated when you initiate shmooth
+test "$SX_APP_NAME" = "$NAME"
+sxt_verify $? "test_base" "verify_app_name"
+
+SXT_IS_BASE_SOURCED=true
+export SXT_IS_BASE_SOURCED

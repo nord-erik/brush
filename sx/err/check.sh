@@ -9,7 +9,7 @@ sx_check() {
   # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
     if [ -n "$msg" ]; then
-      echo "$msg">&2
+      echo "$msg" >&2
     fi
 
     exit 1

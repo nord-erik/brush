@@ -54,8 +54,8 @@ expect_message_to_print() {
 }
 
 expect_message_to_be_stderr() {
-  buf_out=$( (sx_check 1 "deliberate testing error") 2>/dev/null)
-  buf_err=$( (sx_check 1 "deliberate testing error") 2>&1 1>/dev/null)
+  buf_out=$( (sx_check 1 "deliberate testing error") 2> /dev/null)
+  buf_err=$( (sx_check 1 "deliberate testing error") 2>&1 1> /dev/null)
   test -z "$buf_out" && test -n "$buf_err"
   sxt_verify $? $FIXTURE_NAME "messages_sent_to_stderr"
 }
