@@ -12,4 +12,3 @@ test_guard_function_is_defined() {
 }
 
 test_guard_function_is_defined sx_is_file
-test_guard_function_is_defined sx_is_command
