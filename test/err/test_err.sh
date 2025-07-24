@@ -24,6 +24,7 @@ expect_0_to_be_ok() {
 
 expect_1_to_be_nok() {
   local did_exit
+
   # capture the exit, set to 0 if exit happened
   did_exit=1
   mock_process_1
@@ -78,7 +79,7 @@ expect_message_to_be_equal() {
   message="it should be possible to pass a proper string"
   buf_err=$( (sx_check 1 "$message") 2>&1)
   test "$message" = "$buf_err"
-  sxt_verify $? $FIXTURE_NAME "messages_are_equal_to_sent_argumetn"
+  sxt_verify $? $FIXTURE_NAME "messages_are_equal_to_sent_argumet"
 }
 
 # run the tests

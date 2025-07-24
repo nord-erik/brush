@@ -54,7 +54,6 @@ expect_log_to_actually_log() {
     echo "got:  [$actual_terminal]"
     echo "want: [$expected]"
   fi
-
 }
 
 # fns exists
