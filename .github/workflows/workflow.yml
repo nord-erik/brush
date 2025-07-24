@@ -13,4 +13,4 @@ jobs:
       - name: do the hook
         run: |
           sudo apt-get install shfmt shellcheck
-          ./hook.sh SILENT
+          ./hook.sh LOUD

@@ -49,6 +49,6 @@ if echo "$test_log" | grep -q "FAIL"; then
   exit 4
 fi
 
-if [ "$1" != "SILENT" ]; then
+if [ "$1" == "LOUD" ]; then
   echo "HOOK SUCCESS WITH EXIT CODE: 0"
 fi

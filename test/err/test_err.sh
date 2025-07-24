@@ -17,33 +17,34 @@ mock_process_rand() {
 
 expect_0_to_be_ok() {
   mock_process_0
-  # shellcheck disable=SC2091
-  $(sx_check $?)
+  (
+    sx_check $?
+    return 0 # skipped if above func did exit
+  )
+  test $? -eq 0
   sxt_verify $? $FIXTURE_NAME "check_works_on_0"
 }
 
 expect_1_to_be_nok() {
-  local did_exit
-
-  # capture the exit, set to 0 if exit happened
-  did_exit=1
   mock_process_1
-  # shellcheck disable=SC2091
-  $(sx_check $?) || did_exit=0
-  sxt_verify $did_exit $FIXTURE_NAME "check_works_on_1"
+  (
+    sx_check $?
+    return 0 # skipped if above func did exit
+  )
+  test $? -eq 1
+  sxt_verify $? $FIXTURE_NAME "check_works_on_1"
 }
 
 expect_random_to_be_nok() {
-  local did_exit
   local random_value_was
-
-  # capture the exit, set to 0 if exit happened
-  did_exit=1
   mock_process_rand
   random_value_was=$?
-  # shellcheck disable=SC2091
-  $(sx_check $random_value_was) || did_exit=0
-  sxt_verify $did_exit $FIXTURE_NAME "check_works_on_rand_($random_value_was)"
+  (
+    sx_check $random_value_was
+    return 0 # skipped if above func did exit
+  )
+  test $? -eq 1
+  sxt_verify $? $FIXTURE_NAME "check_works_on_rand_($random_value_was)"
 }
 
 expect_no_message_to_print_nothing() {

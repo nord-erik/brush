@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# sx_chekc is used when you want to make sure that previous command exited without any failures
+# sx_check is used when you want to make sure that previous command exited without any failures
 
 sx_check() {
   local code=$1
