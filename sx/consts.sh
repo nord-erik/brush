@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# this file contains constats that can be accessed across the shmooth lib
+# these constats that can be freely accessed accross the bru.sh library
 
 # +-----------------------------------+
 # | COLOUR CONSTANTS                  |

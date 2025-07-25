@@ -7,7 +7,7 @@ export SX_ROOT
 SX_APP_NAME=$1
 
 if [ -z "$SX_APP_NAME" ]; then
-  SX_APP_NAME="shmooth-app"
+  SX_APP_NAME="bru.sh"
 fi
 
 export SX_APP_NAME

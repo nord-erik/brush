@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# SET $1 = "SILENCE" to silence successful runs
+# set $1 = "VERBOSE" to be less funky...
+#
 # applies shfmt on all files, then runs shellcheck on all files, then runs tests -- error codes:
 #   0 => all ok
 #   1 => dependencies not available
@@ -49,6 +50,8 @@ if echo "$test_log" | grep -q "FAIL"; then
   exit 4
 fi
 
-if [ "$1" == "LOUD" ]; then
-  echo "HOOK SUCCESS WITH EXIT CODE: 0"
+if [ "$1" == "VERBOSE" ]; then
+  echo "POLISH SUCCESS WITH EXIT CODE: 0"
+else
+  echo -e "\033[92mpolish complete\033[0m"
 fi

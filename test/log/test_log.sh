@@ -36,7 +36,7 @@ expect_log_to_actually_log() {
   esac
 
   actual_terminal=$($logger_under_test "$message")
-  actual_log="$(journalctl --reverse | head -1)"
+  actual_log="$(journalctl -n 5 --reverse --no-pager)"
   echo "$actual_log" | grep --quiet "$keyword $message"
   sxt_verify $? $FIXTURE_NAME "${logger_under_test}_can_log_properly"
 

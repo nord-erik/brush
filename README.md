@@ -1,14 +1,18 @@
-# SHMOOTH
+# bru.sh 🪥
 
-Shell but smooth -- shmooth. Or short hand form: sx (it's a shell extension)
+A minified library for shell scripts that contain assertions about the context. Useful for defensive programming when you want to make sure that your shell script won't explode on something trivial. 
 
-small library used to make bash script a bit easier to write
+Writing robust shell scripts often means cluttering your procedure with safety code: "Did the file exist?", "Was an argument passed?", "Is this user root?", etc. These defensive checks are important but repetitive, noisy, and easy to forget.
 
-its an extension to bash, if you have bash you can just source and go
+In brush, we refer to these assertions as sweeps. Because brush use them to sweep away any unwanted initial state. 
 
-at some point it should support at least dash so that you can run with speed
+## example
 
-## dev requirements
+```bash
+TODO: show some examples of where brush shines
+```
+
+## test requirements
 
 shfmt -- formatter
 

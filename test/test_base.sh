@@ -6,9 +6,9 @@ if [ "$SXT_IS_BASE_SOURCED" = "true" ]; then
 fi
 
 VERBOSE=1
-NAME="shmoothTestRunner"
+NAME="bru.sh(test)"
 
-source "$TEST_ROOT/../shmoo.sh" "$NAME"
+source "$TEST_ROOT/../bru.sh" "$NAME"
 
 # report that a test has failed
 __sxt_report_test_fail() {
@@ -54,7 +54,7 @@ sxt_assert_function_defined() {
   return 1
 }
 
-# verify that app name is propagated when you initiate shmooth
+# verify that app name is propagated when you initiate
 test "$SX_APP_NAME" = "$NAME"
 sxt_verify $? "test_base" "verify_app_name"
 

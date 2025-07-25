@@ -1,4 +1,4 @@
-name: ci-hook
+name: hook
 on:
   push:
     branches: [ "huve" ]
@@ -8,9 +8,14 @@ on:
 jobs:
   hook:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      - name: do the hook
-        run: |
-          sudo apt-get install shfmt shellcheck
-          ./hook.sh LOUD
+        with:
+            fetch-depth: 1
+
+      - name: install test deps
+        run: sudo apt-get install shfmt shellcheck
+
+      - name: execute hooking script
+        run: ./poli.sh VERBOSE
