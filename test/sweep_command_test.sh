@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FIXTURE_NAME="test_guard_is_command"
-source "$TEST_ROOT/test_base.sh"
+source "$TEST_ROOT/base.sh"
 
 test_command_exist() {
   sx_is_command cat

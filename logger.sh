@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# this script contains logging utilities that can be used by anyone really
+# functions prefixed "__" are not meant to be used directly, but who can stop you
+
 __sx_log() {
   local prio=$1
   local suffix=$2

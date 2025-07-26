@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FIXTURE_NAME="test_log"
-source "$TEST_ROOT/test_base.sh"
+source "$TEST_ROOT/base.sh"
 
 # make sure log fns are defined
 test_log_function_is_defined() {

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FIXTURE_NAME="test_err"
-source "$TEST_ROOT/test_base.sh"
+source "$TEST_ROOT/base.sh"
 
 mock_process_0() {
   return 0

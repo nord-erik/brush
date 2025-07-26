@@ -6,10 +6,6 @@
 # you can pass optinally one and only one argument to the source
 # the passed argument will be the name for the script in log file
 
-SX_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
-SX_ROOT="$SX_ROOT/sx"
-export SX_ROOT
-
 SX_APP_NAME=$1
 
 if [ -z "$SX_APP_NAME" ]; then
@@ -18,15 +14,18 @@ fi
 
 export SX_APP_NAME
 
-# global variable
-source "$SX_ROOT/consts.sh"
+BRUSH_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+export BRUSH_ROOT
 
-# logging components
-source "$SX_ROOT/log/logger.sh"
+SWEEP_ROOT="$BRUSH_ROOT/sweep"
+export SWEEP_ROOT
 
-# error checking components
-source "$SX_ROOT/err/check.sh"
+# make sure we load the constants
+source "$BRUSH_ROOT/consts.sh"
 
-# guards
-source "$SX_ROOT/guard/is_command.sh"
-source "$SX_ROOT/guard/is_file.sh"
+# load the logging utilities
+source "$BRUSH_ROOT/logger.sh"
+
+# sweeps:
+source "$SWEEP_ROOT/command.sh"
+source "$SWEEP_ROOT/ok.sh"

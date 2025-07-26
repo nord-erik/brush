@@ -8,6 +8,7 @@
 #   2 => shellcheck nags
 #   3 => shfmt nags
 #   4 => tests fail
+# 112 => your file system does not work
 
 HOOK_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 cd "$HOOK_ROOT" || exit 112
@@ -40,7 +41,7 @@ if test $? -ne 0; then
   exit 3
 fi
 
-test_log="$("$HOOK_ROOT"/test/run_all_tests.sh)"
+test_log="$("$HOOK_ROOT"/test/all.sh)"
 
 # $? == 0 means we found the pattern of "FAIL", i.e. we have failures
 if echo "$test_log" | grep -q "FAIL"; then
