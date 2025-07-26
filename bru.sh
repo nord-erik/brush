@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# this script serves as a sort fo import all sweeps / import the whole lib
+# source this file and all sweeps gets loaded
+#
+# you can pass optinally one and only one argument to the source
+# the passed argument will be the name for the script in log file
+
 SX_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 SX_ROOT="$SX_ROOT/sx"
 export SX_ROOT

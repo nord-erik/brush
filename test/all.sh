@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# execute this script in order to test all tests
+# when you add new test files, add them here
+
 TEST_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 export TEST_ROOT
 

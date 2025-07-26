@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# this file contains utilities and variables and etc that is useful for all testing
+# all test scripts should soruce this to gain the common utilities
+# sort of like a base test class for all other tests
+
 # if any other script already sourced this, then skip doing it again
 if [ "$SXT_IS_BASE_SOURCED" = "true" ]; then
   return 0
