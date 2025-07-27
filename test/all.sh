@@ -9,7 +9,7 @@ export TEST_ROOT
 run_test() {
   local test_file=$1
   # shellcheck disable=SC1090
-  source "$TEST_ROOT/$test_file" || echo "$test_file CRASHED!"
+  source "$TEST_ROOT/$test_file" 2> /dev/null || echo "$test_file CRASHED!"
 }
 
 # source to keep it as one process -- then || 0 to not crash on test failures
