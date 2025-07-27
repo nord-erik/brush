@@ -7,8 +7,7 @@
 # this test fixture is skipped if there are no cached sudo credentials
 
 FIXTURE_NAME="sweep_sudo_as_root"
-source "$TEST_ROOT/base.sh"
-echo "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
+printf "%s\n" "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
 
 # verify cases when is root
 # returns 0 if there are cached sudo credentials and can sudo without user intervention...

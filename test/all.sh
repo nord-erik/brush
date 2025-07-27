@@ -9,10 +9,11 @@ export TEST_ROOT
 run_test() {
   local test_file=$1
   # shellcheck disable=SC1090
-  source "$TEST_ROOT/$test_file" 2> /dev/null || echo "$test_file CRASHED!"
+  (source "$TEST_ROOT/$test_file" 2> /dev/null) || printf "%s\n" "$test_file CRASHED!"
 }
 
 # source to keep it as one process -- then || 0 to not crash on test failures
+source "$TEST_ROOT/base.sh"
 run_test logger_test.sh
 run_test sweep_command_test.sh
 run_test sweep_env_test.sh

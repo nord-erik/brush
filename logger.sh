@@ -17,7 +17,6 @@ __brush_terminal_print() {
   local msg=$3
   local to_stderr=$4 # optional
 
-  # printf more stable than echo
   msg=$(printf "%b %s" "$colour$suffix$BRUSH_CLEAR" "$msg")
 
   if test -z "$to_stderr"; then

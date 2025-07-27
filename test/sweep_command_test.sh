@@ -1,8 +1,7 @@
 #!/bin/bash
 
 FIXTURE_NAME="sweep_command"
-source "$TEST_ROOT/base.sh"
-echo "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
+printf "%s\n" "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
 
 # verify api can load
 brush_defined sweep_command

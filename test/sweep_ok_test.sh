@@ -2,8 +2,7 @@
 # shellcheck disable=SC2319
 
 FIXTURE_NAME="sweep_ok"
-source "$TEST_ROOT/base.sh"
-echo "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
+printf "%s\n" "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
 
 # verify api can load
 brush_defined sweep_ok

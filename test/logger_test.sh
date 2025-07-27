@@ -1,8 +1,7 @@
 #!/bin/bash
 
 FIXTURE_NAME="logger"
-source "$TEST_ROOT/base.sh"
-echo "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
+printf "%s\n" "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
 
 # this is different for diffrent systems
 __caputre_log() {
@@ -27,8 +26,8 @@ test_log_can_print() {
     return 0
   fi
 
-  echo "got:  [$buf_terminal]"
-  echo "want: [$expected_output]"
+  printf "%s\n" "got:  [$buf_terminal]"
+  printf "%s\n" "want: [$expected_output]"
 
   return 1
 }
@@ -57,17 +56,17 @@ test_log_can_logger() {
   esac
 
   # produce the logs and capture it
-  $log_fn "$log_input"
+  $log_fn "$log_input" > /dev/null
   buf_logger="$(__caputre_log)"
   expected_log="$expected_keyword $log_input"
 
   # shellcheck disable=SC2181
-  if echo "$buf_logger" | grep --quiet "$expected_log"; then
+  if printf "%s\n" "$buf_logger" | grep --quiet "$expected_log"; then
     return 0
   fi
 
-  echo "got:  [$buf_logger]"
-  echo "want: [$expected_log]"
+  printf "%s\n" "got:  [$buf_logger]"
+  printf "%s\n" "want: [$expected_log]"
 
   return 1
 }
