@@ -30,7 +30,7 @@ __bru_report_pass() {
   local test_file_name=$1
   local test_name=$2
 
-  echo -e "\t${BRU_GREEN}OK${BRU_CLEAR} $test_file_name / $test_name"
+  echo -e "\t${BRU_GREEN}OK  ${BRU_CLEAR} $test_file_name / $test_name"
 }
 
 # assert code is 0 => test pass, if other => test fail
@@ -59,6 +59,13 @@ bru_defined() {
   fi
 
   return 1
+}
+
+bru_skip() {
+  local test_file_name=$1
+  local test_name=$2
+
+  echo -e "\t${BRU_YELLOW}SKIP${BRU_CLEAR} $test_file_name / $test_name"
 }
 
 # verify that app name is propagated when you initiate

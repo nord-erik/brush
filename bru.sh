@@ -29,3 +29,4 @@ source "$BRUSH_ROOT/logger.sh"
 # sweeps:
 source "$SWEEP_ROOT/command.sh"
 source "$SWEEP_ROOT/ok.sh"
+source "$SWEEP_ROOT/root.sh"
