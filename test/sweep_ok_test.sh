@@ -3,23 +3,23 @@
 
 FIXTURE_NAME="sweep_ok"
 source "$TEST_ROOT/base.sh"
-echo "${BRU_CYAN}RUN_TEST${BRU_CLEAR}: $FIXTURE_NAME"
+echo "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
 
 # verify api can load
-bru_defined sweep_ok
-bru_assert $? $FIXTURE_NAME "sweep_ok_defined"
+brush_defined sweep_ok
+brush_assert $? $FIXTURE_NAME "sweep_ok_defined"
 
 # error codes
 sweep_ok 0
 test $? -eq 0
-bru_assert $? $FIXTURE_NAME "sweep_ok_on_0"
+brush_assert $? $FIXTURE_NAME "sweep_ok_on_0"
 
 (
   sweep_ok 1
   return 0
 ) # capture the exit
 test $? -eq 1
-bru_assert $? $FIXTURE_NAME "check_works_on_1"
+brush_assert $? $FIXTURE_NAME "check_works_on_1"
 
 # message propagation
 expect_no_message_to_print_nothing() {
@@ -49,19 +49,19 @@ expect_message_to_be_equal() {
   local msg expected buf_err
 
   msg="it should be possible to pass a proper string"
-  expected="${BRU_RED}error:${BRU_CLEAR} $msg"
+  expected="${BRUSH_RED}error:${BRUSH_CLEAR} $msg"
   buf_err=$( (sweep_ok 1 "$msg") 2>&1 > /dev/null)
   test "$expected" = "$buf_err"
 }
 
 expect_no_message_to_print_nothing
-bru_assert $? $FIXTURE_NAME "no_message_when_no_message"
+brush_assert $? $FIXTURE_NAME "no_message_when_no_message"
 
 expect_message_to_print
-bru_assert $? $FIXTURE_NAME "a_message_when_message"
+brush_assert $? $FIXTURE_NAME "a_message_when_message"
 
 expect_message_to_be_stderr
-bru_assert $? $FIXTURE_NAME "messages_sent_to_stderr"
+brush_assert $? $FIXTURE_NAME "messages_sent_to_stderr"
 
 expect_message_to_be_equal
-bru_assert $? $FIXTURE_NAME "messages_are_equal_to_sent_argumet"
+brush_assert $? $FIXTURE_NAME "messages_are_equal_to_sent_argumet"

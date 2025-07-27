@@ -2,7 +2,7 @@
 
 FIXTURE_NAME="logger"
 source "$TEST_ROOT/base.sh"
-echo "${BRU_CYAN}RUN_TEST${BRU_CLEAR}: $FIXTURE_NAME"
+echo "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
 
 # this is different for diffrent systems
 __caputre_log() {
@@ -39,16 +39,16 @@ test_log_can_logger() {
   local buf_logger expected_keyword expected_log
 
   case $log_fn in
-  bru_error)
+  brush_error)
     expected_keyword="(ERROR)"
     ;;
-  bru_warning)
+  brush_warning)
     expected_keyword="(WARNING)"
     ;;
-  bru_notice)
+  brush_notice)
     expected_keyword="(NOTICE)"
     ;;
-  bru_log)
+  brush_log)
     expected_keyword="(INFO)"
     ;;
   *)
@@ -73,40 +73,40 @@ test_log_can_logger() {
 }
 
 # verify api can load
-bru_defined bru_error
-bru_assert $? $FIXTURE_NAME "bru_error_defined"
+brush_defined brush_error
+brush_assert $? $FIXTURE_NAME "brush_error_defined"
 
-bru_defined bru_warning
-bru_assert $? $FIXTURE_NAME "bru_warning_defined"
+brush_defined brush_warning
+brush_assert $? $FIXTURE_NAME "brush_warning_defined"
 
-bru_defined bru_notice
-bru_assert $? $FIXTURE_NAME "bru_notice_defined"
+brush_defined brush_notice
+brush_assert $? $FIXTURE_NAME "brush_notice_defined"
 
-bru_defined bru_log
-bru_assert $? $FIXTURE_NAME "bru_log_defined"
+brush_defined brush_log
+brush_assert $? $FIXTURE_NAME "brush_log_defined"
 
 # verify terminal print
-test_log_can_print bru_error test_eeaecba723 "${BRU_RED}error:$BRU_CLEAR test_eeaecba723" true
-bru_assert $? $FIXTURE_NAME "bru_error_stderr_terminal_output"
+test_log_can_print brush_error test_eeaecba723 "${BRUSH_RED}error:$BRUSH_CLEAR test_eeaecba723" true
+brush_assert $? $FIXTURE_NAME "brush_error_stderr_terminal_output"
 
-test_log_can_print bru_warning test_8fb3a501cb "${BRU_YELLOW}warning:$BRU_CLEAR test_8fb3a501cb" false
-bru_assert $? $FIXTURE_NAME "bru_warning_terminal_output"
+test_log_can_print brush_warning test_8fb3a501cb "${BRUSH_YELLOW}warning:$BRUSH_CLEAR test_8fb3a501cb" false
+brush_assert $? $FIXTURE_NAME "brush_warning_terminal_output"
 
-test_log_can_print bru_notice test_25b55b7d2a "${BRU_BLUE}notice:$BRU_CLEAR test_25b55b7d2a" false
-bru_assert $? $FIXTURE_NAME "bru_notice_terminal_output"
+test_log_can_print brush_notice test_25b55b7d2a "${BRUSH_BLUE}notice:$BRUSH_CLEAR test_25b55b7d2a" false
+brush_assert $? $FIXTURE_NAME "brush_notice_terminal_output"
 
-test_log_can_print bru_log test_da2bc4d023 "${BRU_WHITE}info:$BRU_CLEAR test_da2bc4d023" false
-bru_assert $? $FIXTURE_NAME "bru_log_terminal_output"
+test_log_can_print brush_log test_da2bc4d023 "${BRUSH_WHITE}info:$BRUSH_CLEAR test_da2bc4d023" false
+brush_assert $? $FIXTURE_NAME "brush_log_terminal_output"
 
 # verify system logs
-test_log_can_logger bru_error test_eeaecba723
-bru_assert $? $FIXTURE_NAME "bru_error_logger_output"
+test_log_can_logger brush_error test_eeaecba723
+brush_assert $? $FIXTURE_NAME "brush_error_logger_output"
 
-test_log_can_logger bru_warning test_8fb3a501cb
-bru_assert $? $FIXTURE_NAME "bru_warning_logger_output"
+test_log_can_logger brush_warning test_8fb3a501cb
+brush_assert $? $FIXTURE_NAME "brush_warning_logger_output"
 
-test_log_can_logger bru_notice test_25b55b7d2a
-bru_assert $? $FIXTURE_NAME "bru_notice_logger_output"
+test_log_can_logger brush_notice test_25b55b7d2a
+brush_assert $? $FIXTURE_NAME "brush_notice_logger_output"
 
-test_log_can_logger bru_log test_da2bc4d023
-bru_assert $? $FIXTURE_NAME "bru_log_logger_output"
+test_log_can_logger brush_log test_da2bc4d023
+brush_assert $? $FIXTURE_NAME "brush_log_logger_output"

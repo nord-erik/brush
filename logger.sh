@@ -3,22 +3,22 @@
 # this script contains logging utilities that can be used by anyone really
 # functions prefixed "__" are not meant to be used directly, but who can stop you
 
-__bru_system_logger() {
+__brush_system_logger() {
   local prio=$1
   local suffix=$2
   local msg=$3
 
-  logger -t "$BRU_APP_NAME" -p "user.$prio" "[$$] $suffix $msg"
+  logger -t "$BRUSH_APP_NAME" -p "user.$prio" "[$$] $suffix $msg"
 }
 
-__bru_terminal_print() {
+__brush_terminal_print() {
   local colour=$1
   local suffix=$2
   local msg=$3
   local to_stderr=$4 # optional
 
   # printf more stable than echo
-  msg=$(printf "%b %s" "$colour$suffix$BRU_CLEAR" "$msg")
+  msg=$(printf "%b %s" "$colour$suffix$BRUSH_CLEAR" "$msg")
 
   if test -z "$to_stderr"; then
     printf "%s\n" "$msg"
@@ -28,33 +28,33 @@ __bru_terminal_print() {
 }
 
 # prints a visual error and logs it
-bru_error() {
+brush_error() {
   local msg=$1
 
-  __bru_system_logger "err" "(ERROR)" "$msg"
-  __bru_terminal_print "$BRU_RED" "error:" "$msg" to_sderr_please
+  __brush_system_logger "err" "(ERROR)" "$msg"
+  __brush_terminal_print "$BRUSH_RED" "error:" "$msg" to_sderr_please
 }
 
 # prints a visual warning and logs it
-bru_warning() {
+brush_warning() {
   local msg=$1
 
-  __bru_system_logger "warn" "(WARNING)" "$msg"
-  __bru_terminal_print "$BRU_YELLOW" "warning:" "$msg"
+  __brush_system_logger "warn" "(WARNING)" "$msg"
+  __brush_terminal_print "$BRUSH_YELLOW" "warning:" "$msg"
 }
 
 # prints a visual notice and logs it
-bru_notice() {
+brush_notice() {
   local msg=$1
 
-  __bru_system_logger "notice" "(NOTICE)" "$msg"
-  __bru_terminal_print "$BRU_BLUE" "notice:" "$msg"
+  __brush_system_logger "notice" "(NOTICE)" "$msg"
+  __brush_terminal_print "$BRUSH_BLUE" "notice:" "$msg"
 }
 
 # prints a visual message and logs it
-bru_log() {
+brush_log() {
   local msg=$1
 
-  __bru_system_logger "info" "(INFO)" "$msg"
-  __bru_terminal_print "$BRU_WHITE" "info:" "$msg"
+  __brush_system_logger "info" "(INFO)" "$msg"
+  __brush_terminal_print "$BRUSH_WHITE" "info:" "$msg"
 }

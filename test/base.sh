@@ -18,40 +18,40 @@ NAME="bru.sh(test)"
 source "$TEST_ROOT/../bru.sh" "$NAME"
 
 # report that a test has failed
-__bru_report_fail() {
+__brush_report_fail() {
   local test_file_name=$1
   local test_name=$2
 
-  echo -e "\t${BRU_RED}FAIL    ::::${BRU_CLEAR}    $test_file_name # $test_name"
+  echo -e "\t${BRUSH_RED}FAIL    ::::${BRUSH_CLEAR}    $test_file_name # $test_name"
 }
 
 # report that a test has passed
-__bru_report_pass() {
+__brush_report_pass() {
   local test_file_name=$1
   local test_name=$2
 
-  echo -e "\t${BRU_GREEN}OK  ${BRU_CLEAR} $test_file_name / $test_name"
+  echo -e "\t${BRUSH_GREEN}OK  ${BRUSH_CLEAR} $test_file_name / $test_name"
 }
 
 # assert code is 0 => test pass, if other => test fail
-bru_assert() {
+brush_assert() {
   local code=$1
   local test_file_name=$2
   local test_name=$3
 
   # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
-    __bru_report_fail "$test_file_name" "$test_name"
+    __brush_report_fail "$test_file_name" "$test_name"
   else
     if [ $VERBOSE -eq 1 ]; then
-      __bru_report_pass "$test_file_name" "$test_name"
+      __brush_report_pass "$test_file_name" "$test_name"
     fi
   fi
 
   return "$code"
 }
 
-bru_defined() {
+brush_defined() {
   local fn=$1
 
   if [ "$(type -t "$fn")" = "function" ]; then
@@ -61,16 +61,16 @@ bru_defined() {
   return 1
 }
 
-bru_skip() {
+brush_skip() {
   local test_file_name=$1
   local test_name=$2
 
-  echo -e "\t${BRU_YELLOW}SKIP${BRU_CLEAR} $test_file_name / $test_name"
+  echo -e "\t${BRUSH_YELLOW}SKIP${BRUSH_CLEAR} $test_file_name / $test_name"
 }
 
 # verify that app name is propagated when you initiate
-test "$BRU_APP_NAME" = "$NAME"
-bru_assert $? "test_base" "verify_app_name"
+test "$BRUSH_APP_NAME" = "$NAME"
+brush_assert $? "test_base" "verify_app_name"
 
 SXT_IS_BASE_SOURCED=true
 export SXT_IS_BASE_SOURCED

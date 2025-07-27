@@ -10,7 +10,7 @@ sweep_ok() {
   # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
     if [ -n "$msg" ]; then
-      bru_error "$msg"
+      brush_error "$msg"
     fi
 
     exit 1
