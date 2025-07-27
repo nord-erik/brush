@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# sweep_root checks if the user is root, for when that is required
+# sweep_sudo checks if the user is root, for when that is required
 # can also assert that it should not be root
 
-sweep_root() {
+sweep_sudo() {
   local should_be=$1
   local is_root final_app_name
 
@@ -23,7 +23,7 @@ sweep_root() {
   if [ "$should_be" = "true" ] || [ "$should_be" = "false" ]; then
     true
   else
-    brush_error "sweep_root optional 1st argument must be omitted, true or false"
+    brush_error "sweep_sudo optional 1st argument must be omitted, true or false"
     exit 1
   fi
 

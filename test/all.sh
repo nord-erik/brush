@@ -16,5 +16,5 @@ run_test() {
 run_test logger_test.sh
 run_test sweep_command_test.sh
 run_test sweep_ok_test.sh
-run_test sweep_root_test.sh
-run_test sweep_root_sudo_test.sh
+run_test sweep_sudo_test.sh
+run_test sweep_sudo_as_root_test.sh
