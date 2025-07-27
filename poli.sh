@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2126
 
 # set $1 = "VERBOSE" to be less funky...
 # this polishing script will check the code for lint errors and formatting errors, then run all tests
@@ -32,14 +33,19 @@ testing_run_all() {
 
 testing_checks() {
   local test_report=$1
+  local number_executed number_found
 
-  printf "%s" "$test_report" | grep -q "FAIL"
-  test $? -eq 1
-  sweep_ok $? "tests are not passing" 4
+  printf "%s" "$test_report" | grep --quiet "FAIL"
+  sweep_nok $? "tests are not passing" 4
 
-  printf "%s" "$test_report" | grep -q "CRASHED"
-  test $? -eq 1
-  sweep_ok $? "tests are crashing" 4
+  printf "%s" "$test_report" | grep --quiet "CRASHED"
+  sweep_nok $? "tests are crashing" 4
+
+  number_found=$(grep --dereference-recursive "brush_assert " "$HOOK_ROOT"/test | wc --lines)
+  number_executed=$(printf "%s" "$test_report" | grep --extended-regexp "(OK|SKIP)" | wc --lines)
+
+  test "$number_found" = "$number_executed"
+  sweep_ok $? "not all tests executed, found $number_found test cases, but only $number_executed was present in test report"
 }
 
 polish() {
