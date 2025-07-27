@@ -1,21 +1,55 @@
 #!/bin/bash
 
 # sweep_root checks if the user is root, for when that is required
+# can also assert that it should not be root
 
 sweep_root() {
-  local current_uid final_app_name
-  current_uid="$(id -u)"
+  local should_be=$1
+  local is_root final_app_name
+  is_root="$(id -u)"
 
-  if [ "$current_uid" -eq 0 ]; then
-    return 0
+  # default argument 1 value
+  if [ -z "$should_be" ]; then
+    should_be=true
   fi
 
+  # validity check argument 1
+  if [ "$should_be" = "true" ] || [ "$should_be" = "false" ]; then
+    true
+  else
+    brush_error "sweep_root optional 1st argument must be omitted, true or false"
+    exit 1
+  fi
+
+  # error message
   if [ "$BRUSH_APP_NAME" = "$BRUSH_DEFAULT_APP_NAME" ]; then
     final_app_name="this script"
   else
     final_app_name="'$BRUSH_APP_NAME'"
   fi
 
-  brush_error "you must be root in order to run $final_app_name, please re-run with sudo"
+  # actual logic to determine if OK -- first stringify the "id -u"
+  if [ "$is_root" -eq 0 ]; then
+    is_root="true"
+  else
+    is_root="false"
+  fi
+
+  if [ "$is_root" = "true" ]; then
+    # case when root
+    if [ "$should_be" = "true" ]; then
+      return 0
+    else
+      brush_error "you must be user in order to run $final_app_name, please re-run without root"
+    fi
+  else
+    # case when NOT root
+    if [ "$should_be" = "true" ]; then
+      brush_error "you must be root in order to run $final_app_name, please re-run with sudo"
+    else
+      return 0
+    fi
+  fi
+
   exit 1
 }
