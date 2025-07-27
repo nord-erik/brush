@@ -21,6 +21,13 @@ brush_assert $? $FIXTURE_NAME "sweep_ok_on_0"
 test $? -eq 1
 brush_assert $? $FIXTURE_NAME "check_works_on_1"
 
+(
+  sweep_ok 1 "" 10
+  return 0
+) # capture the exit
+test $? -eq 10
+brush_assert $? $FIXTURE_NAME "check_custom_error_code_works"
+
 # message propagation
 expect_no_message_to_print_nothing() {
   local buf_err

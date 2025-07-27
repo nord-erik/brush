@@ -6,6 +6,11 @@
 sweep_ok() {
   local code=$1
   local msg=$2
+  local custom_error_code=$3
+
+  if [ -z "$custom_error_code" ]; then
+    custom_error_code=1
+  fi
 
   # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
@@ -13,6 +18,6 @@ sweep_ok() {
       brush_error "$msg"
     fi
 
-    exit 1
+    exit $custom_error_code
   fi
 }
