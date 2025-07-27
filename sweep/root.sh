@@ -10,7 +10,7 @@ sweep_root() {
     return 0
   fi
 
-  if [ "$BRUSH_APP_NAME" = "$DEFAULT_APP_NAME" ]; then
+  if [ "$BRUSH_APP_NAME" = "$BRUSH_DEFAULT_APP_NAME" ]; then
     final_app_name="this script"
   else
     final_app_name="'$BRUSH_APP_NAME'"
