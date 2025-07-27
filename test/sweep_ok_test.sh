@@ -32,7 +32,7 @@ expect_no_message_to_print_nothing() {
 expect_message_to_print() {
   local buf_err
 
-  buf_err=$( (sweep_ok 1 "deliberate testing error") 2>&1)
+  buf_err=$( (sweep_ok 1 "deliberate testing error") 2>&1 > /dev/null)
   test -n "$buf_err"
 }
 
@@ -41,17 +41,17 @@ expect_message_to_be_stderr() {
   local buf_err
 
   buf_out=$( (sweep_ok 1 "deliberate testing error") 2> /dev/null)
-  buf_err=$( (sweep_ok 1 "deliberate testing error") 2>&1 1> /dev/null)
+  buf_err=$( (sweep_ok 1 "deliberate testing error") 2>&1 > /dev/null)
   test -z "$buf_out" && test -n "$buf_err"
 }
 
 expect_message_to_be_equal() {
-  local message
-  local buf_err
+  local msg expected buf_err
 
-  message="it should be possible to pass a proper string"
-  buf_err=$( (sweep_ok 1 "$message") 2>&1)
-  test "$message" = "$buf_err"
+  msg="it should be possible to pass a proper string"
+  expected="${BRU_RED}error:${BRU_CLEAR} $msg"
+  buf_err=$( (sweep_ok 1 "$msg") 2>&1 > /dev/null)
+  test "$expected" = "$buf_err"
 }
 
 expect_no_message_to_print_nothing

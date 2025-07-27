@@ -15,9 +15,16 @@ __bru_terminal_print() {
   local colour=$1
   local suffix=$2
   local msg=$3
+  local to_stderr=$4 # optional
 
   # printf more stable than echo
-  printf "%b %s\n" "$colour$suffix$BRU_CLEAR" "$msg"
+  msg=$(printf "%b %s" "$colour$suffix$BRU_CLEAR" "$msg")
+
+  if test -z "$to_stderr"; then
+    printf "%s\n" "$msg"
+  else
+    printf "%s\n" "$msg" >&2
+  fi
 }
 
 # prints a visual error and logs it
@@ -25,7 +32,7 @@ bru_error() {
   local msg=$1
 
   __bru_system_logger "err" "(ERROR)" "$msg"
-  __bru_terminal_print "$BRU_RED" "error:" "$msg"
+  __bru_terminal_print "$BRU_RED" "error:" "$msg" to_sderr_please
 }
 
 # prints a visual warning and logs it

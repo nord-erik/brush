@@ -13,9 +13,14 @@ test_log_can_print() {
   local log_fn=$1
   local log_input=$2
   local expected_output=$3
+  local should_stderr=$4
   local buf_terminal
 
-  buf_terminal=$($log_fn "$log_input")
+  if [ "$should_stderr" = "true" ]; then
+    buf_terminal=$($log_fn "$log_input" 2>&1 > /dev/null)
+  else
+    buf_terminal=$($log_fn "$log_input")
+  fi
 
   # shellcheck disable=SC2181
   if test "$buf_terminal" = "$expected_output"; then
@@ -81,27 +86,27 @@ bru_defined bru_log
 bru_assert $? $FIXTURE_NAME "bru_log_defined"
 
 # verify terminal print
-test_log_can_print bru_error eeaecba723 "${BRU_RED}error:$BRU_CLEAR eeaecba723"
-bru_assert $? $FIXTURE_NAME "bru_error_terminal_output"
+test_log_can_print bru_error test_eeaecba723 "${BRU_RED}error:$BRU_CLEAR test_eeaecba723" true
+bru_assert $? $FIXTURE_NAME "bru_error_stderr_terminal_output"
 
-test_log_can_print bru_warning 8fb3a501cb "${BRU_YELLOW}warning:$BRU_CLEAR 8fb3a501cb"
+test_log_can_print bru_warning test_8fb3a501cb "${BRU_YELLOW}warning:$BRU_CLEAR test_8fb3a501cb" false
 bru_assert $? $FIXTURE_NAME "bru_warning_terminal_output"
 
-test_log_can_print bru_notice 25b55b7d2a "${BRU_BLUE}notice:$BRU_CLEAR 25b55b7d2a"
+test_log_can_print bru_notice test_25b55b7d2a "${BRU_BLUE}notice:$BRU_CLEAR test_25b55b7d2a" false
 bru_assert $? $FIXTURE_NAME "bru_notice_terminal_output"
 
-test_log_can_print bru_log da2bc4d023 "${BRU_WHITE}info:$BRU_CLEAR da2bc4d023"
+test_log_can_print bru_log test_da2bc4d023 "${BRU_WHITE}info:$BRU_CLEAR test_da2bc4d023" false
 bru_assert $? $FIXTURE_NAME "bru_log_terminal_output"
 
 # verify system logs
-test_log_can_logger bru_error eeaecba723
+test_log_can_logger bru_error test_eeaecba723
 bru_assert $? $FIXTURE_NAME "bru_error_logger_output"
 
-test_log_can_logger bru_warning 8fb3a501cb
+test_log_can_logger bru_warning test_8fb3a501cb
 bru_assert $? $FIXTURE_NAME "bru_warning_logger_output"
 
-test_log_can_logger bru_notice 25b55b7d2a
+test_log_can_logger bru_notice test_25b55b7d2a
 bru_assert $? $FIXTURE_NAME "bru_notice_logger_output"
 
-test_log_can_logger bru_log da2bc4d023
+test_log_can_logger bru_log test_da2bc4d023
 bru_assert $? $FIXTURE_NAME "bru_log_logger_output"
