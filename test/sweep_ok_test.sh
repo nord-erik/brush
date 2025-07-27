@@ -12,21 +12,21 @@ brush_assert $? $FIXTURE_NAME "sweep_ok_defined"
 # error codes
 sweep_ok 0
 test $? -eq 0
-brush_assert $? $FIXTURE_NAME "sweep_ok_on_0"
+brush_assert $? $FIXTURE_NAME "sweep_ok_returns_on_0"
 
 (
   sweep_ok 1
   return 0
 ) # capture the exit
 test $? -eq 1
-brush_assert $? $FIXTURE_NAME "check_works_on_1"
+brush_assert $? $FIXTURE_NAME "sweep_ok_exits_on_1"
 
 (
   sweep_ok 1 "" 10
   return 0
 ) # capture the exit
 test $? -eq 10
-brush_assert $? $FIXTURE_NAME "check_custom_error_code_works"
+brush_assert $? $FIXTURE_NAME "sweep_ok_exits_on_custom_error_code"
 
 # message propagation
 expect_no_message_to_print_nothing() {
@@ -39,7 +39,7 @@ expect_no_message_to_print_nothing() {
 expect_message_to_print() {
   local buf_err
 
-  buf_err=$( (sweep_ok 1 "deliberate testing error") 2>&1 > /dev/null)
+  buf_err=$( (sweep_ok 1 "testing error prints") 2>&1 > /dev/null)
   test -n "$buf_err"
 }
 
@@ -55,20 +55,20 @@ expect_message_to_be_stderr() {
 expect_message_to_be_equal() {
   local msg expected buf_err
 
-  msg="it should be possible to pass a proper string"
+  msg="testing possibility to pass a proper string"
   expected="${BRUSH_RED}error:${BRUSH_CLEAR} $msg"
   buf_err=$( (sweep_ok 1 "$msg") 2>&1 > /dev/null)
   test "$expected" = "$buf_err"
 }
 
 expect_no_message_to_print_nothing
-brush_assert $? $FIXTURE_NAME "no_message_when_no_message"
+brush_assert $? $FIXTURE_NAME "sweep_ok_no_message_when_no_message"
 
 expect_message_to_print
-brush_assert $? $FIXTURE_NAME "a_message_when_message"
+brush_assert $? $FIXTURE_NAME "sweep_ok_a_message_when_message"
 
 expect_message_to_be_stderr
-brush_assert $? $FIXTURE_NAME "messages_sent_to_stderr"
+brush_assert $? $FIXTURE_NAME "sweep_ok_messages_sent_to_stderr"
 
 expect_message_to_be_equal
-brush_assert $? $FIXTURE_NAME "messages_are_equal_to_sent_argumet"
+brush_assert $? $FIXTURE_NAME "sweep_ok_error_messages_contains_input"
