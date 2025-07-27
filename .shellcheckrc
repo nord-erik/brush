@@ -1,3 +1,5 @@
 # this error happens when you source a file
 # and the recommended solution is to disable the warning
 disable=SC1091
+# this error tries to tell me how to use grep, which is not shell
+disable=SC2126

@@ -22,13 +22,13 @@ export BRUSH_ROOT
 SWEEP_ROOT="$BRUSH_ROOT/sweep"
 export SWEEP_ROOT
 
-# make sure we load the constants
+# make sure we load the constants first
 source "$BRUSH_ROOT/consts.sh"
 
-# load the logging utilities
+# then we load the logging utilities
 source "$BRUSH_ROOT/logger.sh"
 
-# sweeps:
+# sweeps (order might matter -- have not tested different order):
 source "$SWEEP_ROOT/command.sh"
 source "$SWEEP_ROOT/nok.sh"
 source "$SWEEP_ROOT/ok.sh"

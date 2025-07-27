@@ -1,8 +1,8 @@
 #!/bin/bash
-# shellcheck disable=SC2126
 
 # set $1 = "VERBOSE" to be less funky...
 # this polishing script will check the code for lint errors and formatting errors, then run all tests
+#
 # error codes signifiy outcomes:
 #   0 => all ok
 #   1 => dependencies not available
@@ -11,6 +11,8 @@
 #   4 => tests fail
 # 112 => your file system does not work
 
+
+# load brush
 HOOK_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 cd "$HOOK_ROOT" || exit 112
 source "$HOOK_ROOT"/bru.sh
@@ -41,7 +43,7 @@ testing_checks() {
   printf "%s" "$test_report" | grep --quiet "CRASHED"
   sweep_nok $? "tests are crashing" 4
 
-  number_found=$(grep --dereference-recursive "brush_assert " "$HOOK_ROOT"/test | wc --lines)
+  number_found=$(grep --dereference-recursive --include="*.sh" "brush_assert " "$HOOK_ROOT"/test | wc --lines)
   number_executed=$(printf "%s" "$test_report" | grep --extended-regexp "(OK|SKIP)" | wc --lines)
 
   test "$number_found" = "$number_executed"
