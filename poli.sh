@@ -41,19 +41,17 @@ if test $? -ne 0; then
   exit 3
 fi
 
-test_log="$("$HOOK_ROOT"/test/all.sh)"
+test_report="$("$HOOK_ROOT"/test/all.sh)"
+echo "$test_report"
+echo ""
 
 # $? == 0 means we found the pattern of "FAIL", i.e. we have failures
-if echo "$test_log" | grep -q "FAIL"; then
-  echo "$test_log"
-  echo ""
+if echo "$test_report" | grep -q "FAIL"; then
   echo "error - tests are not passing"
   exit 4
 fi
 
-if echo "$test_log" | grep -q "CRASHED"; then
-  echo "$test_log"
-  echo ""
+if echo "$test_report" | grep -q "CRASHED"; then
   echo "error - tests are crashing"
   exit 4
 fi
