@@ -30,6 +30,7 @@ source "$BRUSH_ROOT/logger.sh"
 
 # sweeps (order might matter -- have not tested different order):
 source "$SWEEP_ROOT/command.sh"
+source "$SWEEP_ROOT/env.sh"
 source "$SWEEP_ROOT/nok.sh"
 source "$SWEEP_ROOT/ok.sh"
 source "$SWEEP_ROOT/sudo.sh"
