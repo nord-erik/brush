@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # set $1 = "VERBOSE" to be less funky...
-#
-# applies shfmt on all files, then runs shellcheck on all files, then runs tests -- error codes:
+# this polishing script will check the code for lint errors and formatting errors, then run all tests
+# error codes signifiy outcomes:
 #   0 => all ok
 #   1 => dependencies not available
 #   2 => shellcheck nags
@@ -12,56 +12,54 @@
 
 HOOK_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 cd "$HOOK_ROOT" || exit 112
+source "$HOOK_ROOT"/bru.sh
 
-if ! command -v shellcheck > /dev/null 2>&1; then
-  echo ""
-  echo "error - command 'shellcheck' missing please install it"
-  exit 1
-fi
+sweep_command shellcheck && sweep_command shfmt
 
-if ! command -v shfmt > /dev/null 2>&1; then
-  echo ""
-  echo "error - command 'shfmt' missing please install it"
-  exit 1
-fi
+static_checks() {
+  # run formatter over all sh files
+  find . -type f -name "*.sh" -exec shellcheck -- {} +
+  sweep_ok $? "check lint issues" 2
 
-if ! find . -type f -name "*.sh" -exec shellcheck -- {} +; then
-  echo ""
-  echo "error - check formatter issues"
-  exit 2
-fi
+  shfmt --space-redirects --diff --indent 2 .
+  sweep_ok $? "check formatter issues, or quickly apply with:
+        shfmt --space-redirects --write --indent 2 ." 3
+}
 
-shfmt --space-redirects --diff --indent 2 .
+testing_run_all() {
+  printf "%s\n" "$("$HOOK_ROOT"/test/all.sh)"
+}
 
-if test $? -ne 0; then
-  echo ""
-  echo "error - check formatter issues"
-  echo "        if you agree with all, quickly apply with"
-  echo "        shfmt --space-redirects --write --indent 2 ."
-  exit 3
-fi
+testing_checks() {
+  local test_report=$1
 
-test_report="$("$HOOK_ROOT"/test/all.sh)"
+  printf "%s" "$test_report" | grep -q "FAIL"
+  test $? -eq 1
+  sweep_ok $? "tests are not passing" 4
 
-# $? == 0 means we found the pattern of "FAIL", i.e. we have failures
-if echo "$test_report" | grep -q "FAIL"; then
-  echo "$test_report"
-  echo ""
-  echo "error - tests are not passing"
-  exit 4
-fi
+  printf "%s" "$test_report" | grep -q "CRASHED"
+  test $? -eq 1
+  sweep_ok $? "tests are crashing" 4
+}
 
-if echo "$test_report" | grep -q "CRASHED"; then
-  echo "$test_report"
-  echo ""
-  echo "error - tests are crashing"
-  exit 4
-fi
+polish() {
+  local verbose=$1
+  local test_report
 
-if [ "$1" == "VERBOSE" ]; then
-  echo "$test_report"
-  echo ""
-  echo "POLISH SUCCESS WITH EXIT CODE: 0"
-else
-  echo -e "\033[92mpolish complete\033[0m"
-fi
+  static_checks
+  test_report=$(testing_run_all)
+
+  if [ "$verbose" == "VERBOSE" ]; then
+    printf "%s\n" "$test_report"
+  fi
+
+  testing_checks "$test_report"
+
+  if [ "$verbose" == "VERBOSE" ]; then
+    printf "POLISH SUCCESS WITH EXIT CODE: 0\n"
+  else
+    printf "%b%s%b\n" "$BRUSH_LIGHT_GREEN" "polish complete" "$BRUSH_CLEAR"
+  fi
+}
+
+polish "$1"
