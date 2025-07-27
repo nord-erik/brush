@@ -72,3 +72,5 @@ brush_assert $? $FIXTURE_NAME "sweep_nok_messages_sent_to_stderr"
 
 expect_message_to_be_equal
 brush_assert $? $FIXTURE_NAME "sweep_nok_error_messages_contains_input"
+
+return 0

@@ -33,3 +33,5 @@ brush_assert $? $FIXTURE_NAME "sweep_sudo_exit_when_not_root_but_should_explicit
 
 sweep_sudo false
 brush_assert $? $FIXTURE_NAME "sweep_sudo_return_when_not_root_and_should_not"
+
+return 0

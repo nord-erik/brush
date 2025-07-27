@@ -51,3 +51,5 @@ if can_sudo; then
 else
   brush_skip $FIXTURE_NAME "sweep_sudo_exits_when_is_root_but_should_not"
 fi
+
+return 0

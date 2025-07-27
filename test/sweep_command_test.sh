@@ -24,3 +24,5 @@ catch_exit_when_command_undefined() {
 # negative case
 catch_exit_when_command_undefined
 brush_assert $? $FIXTURE_NAME "sweep_command_when_command_undefined"
+
+return 0
