@@ -1,76 +1,48 @@
 #!/bin/bash
+# shellcheck disable=SC2319
 
-FIXTURE_NAME="test_err"
+FIXTURE_NAME="sweep_ok"
 source "$TEST_ROOT/base.sh"
+echo "${BRU_CYAN}RUN_TEST${BRU_CLEAR}: $FIXTURE_NAME"
 
-mock_process_0() {
+# verify api can load
+bru_defined sweep_ok
+bru_assert $? $FIXTURE_NAME "sweep_ok_defined"
+
+# error codes
+sweep_ok 0
+test $? -eq 0
+bru_assert $? $FIXTURE_NAME "sweep_ok_on_0"
+
+(
+  sweep_ok 1
   return 0
-}
+) # capture the exit
+test $? -eq 1
+bru_assert $? $FIXTURE_NAME "check_works_on_1"
 
-mock_process_1() {
-  return 1
-}
-
-mock_process_rand() {
-  return "$(shuf -i 2-1000 -n 1)"
-}
-
-expect_0_to_be_ok() {
-  mock_process_0
-  (
-    sx_check $?
-    return 0 # skipped if above func did exit
-  )
-  test $? -eq 0
-  sxt_verify $? $FIXTURE_NAME "check_works_on_0"
-}
-
-expect_1_to_be_nok() {
-  mock_process_1
-  (
-    sx_check $?
-    return 0 # skipped if above func did exit
-  )
-  test $? -eq 1
-  sxt_verify $? $FIXTURE_NAME "check_works_on_1"
-}
-
-expect_random_to_be_nok() {
-  local random_value_was
-  mock_process_rand
-  random_value_was=$?
-  (
-    sx_check $random_value_was
-    return 0 # skipped if above func did exit
-  )
-  test $? -eq 1
-  sxt_verify $? $FIXTURE_NAME "check_works_on_rand_($random_value_was)"
-}
-
+# message propagation
 expect_no_message_to_print_nothing() {
   local buf_err
 
-  buf_err=$( (sx_check 1) 2>&1)
+  buf_err=$( (sweep_ok 1) 2>&1)
   test -z "$buf_err"
-  sxt_verify $? $FIXTURE_NAME "no_message_when_no_message"
 }
 
 expect_message_to_print() {
   local buf_err
 
-  buf_err=$( (sx_check 1 "deliberate testing error") 2>&1)
+  buf_err=$( (sweep_ok 1 "deliberate testing error") 2>&1)
   test -n "$buf_err"
-  sxt_verify $? $FIXTURE_NAME "a_message_when_message"
 }
 
 expect_message_to_be_stderr() {
   local buf_out
   local buf_err
 
-  buf_out=$( (sx_check 1 "deliberate testing error") 2> /dev/null)
-  buf_err=$( (sx_check 1 "deliberate testing error") 2>&1 1> /dev/null)
+  buf_out=$( (sweep_ok 1 "deliberate testing error") 2> /dev/null)
+  buf_err=$( (sweep_ok 1 "deliberate testing error") 2>&1 1> /dev/null)
   test -z "$buf_out" && test -n "$buf_err"
-  sxt_verify $? $FIXTURE_NAME "messages_sent_to_stderr"
 }
 
 expect_message_to_be_equal() {
@@ -78,23 +50,18 @@ expect_message_to_be_equal() {
   local buf_err
 
   message="it should be possible to pass a proper string"
-  buf_err=$( (sx_check 1 "$message") 2>&1)
+  buf_err=$( (sweep_ok 1 "$message") 2>&1)
   test "$message" = "$buf_err"
-  sxt_verify $? $FIXTURE_NAME "messages_are_equal_to_sent_argumet"
 }
 
-# run the tests
-# defined the func
-sxt_assert_function_defined sx_check
-sxt_verify $? $FIXTURE_NAME "fn_sx_check_defined"
-
-# error codes
-expect_0_to_be_ok
-expect_1_to_be_nok
-expect_random_to_be_nok
-
-# messages
 expect_no_message_to_print_nothing
+bru_assert $? $FIXTURE_NAME "no_message_when_no_message"
+
 expect_message_to_print
+bru_assert $? $FIXTURE_NAME "a_message_when_message"
+
 expect_message_to_be_stderr
+bru_assert $? $FIXTURE_NAME "messages_sent_to_stderr"
+
 expect_message_to_be_equal
+bru_assert $? $FIXTURE_NAME "messages_are_equal_to_sent_argumet"

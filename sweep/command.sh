@@ -1,8 +1,10 @@
 #!/bin/bash
 
-sx_is_command() {
+# use this sweep when you need to make sure that the context has a specific command
+
+sweep_command() {
   local cmd=$1
 
   command -v "$cmd" > /dev/null 2>&1
-  sx_check $? "required command '$cmd' not found"
+  sweep_ok $? "required command '$cmd' not found"
 }

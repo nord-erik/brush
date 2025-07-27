@@ -6,13 +6,13 @@
 # you can pass optinally one and only one argument to the source
 # the passed argument will be the name for the script in log file
 
-SX_APP_NAME=$1
+BRU_APP_NAME=$1
 
-if [ -z "$SX_APP_NAME" ]; then
-  SX_APP_NAME="bru.sh"
+if [ -z "$BRU_APP_NAME" ]; then
+  BRU_APP_NAME="bru.sh"
 fi
 
-export SX_APP_NAME
+export BRU_APP_NAME
 
 BRUSH_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 export BRUSH_ROOT

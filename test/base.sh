@@ -7,6 +7,9 @@
 # if any other script already sourced this, then skip doing it again
 if [ "$SXT_IS_BASE_SOURCED" = "true" ]; then
   return 0
+else
+  # constants not yet sourced....
+  echo -e "\033[36mRUN_TEST\033[0m: base"
 fi
 
 VERBOSE=1
@@ -15,40 +18,40 @@ NAME="bru.sh(test)"
 source "$TEST_ROOT/../bru.sh" "$NAME"
 
 # report that a test has failed
-__sxt_report_test_fail() {
+__bru_report_fail() {
   local test_file_name=$1
   local test_name=$2
 
-  echo -e "${SXC_RED}FAIL    ::::${SXC_CLEAR}    $test_file_name # $test_name"
+  echo -e "\t${BRU_RED}FAIL    ::::${BRU_CLEAR}    $test_file_name # $test_name"
 }
 
 # report that a test has passed
-__sxt_report_test_ok() {
+__bru_report_pass() {
   local test_file_name=$1
   local test_name=$2
 
-  echo -e "${SXC_GREEN}OK${SXC_CLEAR} $test_file_name / $test_name"
+  echo -e "\t${BRU_GREEN}OK${BRU_CLEAR} $test_file_name / $test_name"
 }
 
 # assert code is 0 => test pass, if other => test fail
-sxt_verify() {
+bru_assert() {
   local code=$1
   local test_file_name=$2
   local test_name=$3
 
   # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
-    __sxt_report_test_fail "$test_file_name" "$test_name"
+    __bru_report_fail "$test_file_name" "$test_name"
   else
     if [ $VERBOSE -eq 1 ]; then
-      __sxt_report_test_ok "$test_file_name" "$test_name"
+      __bru_report_pass "$test_file_name" "$test_name"
     fi
   fi
 
   return "$code"
 }
 
-sxt_assert_function_defined() {
+bru_defined() {
   local fn=$1
 
   if [ "$(type -t "$fn")" = "function" ]; then
@@ -59,8 +62,8 @@ sxt_assert_function_defined() {
 }
 
 # verify that app name is propagated when you initiate
-test "$SX_APP_NAME" = "$NAME"
-sxt_verify $? "test_base" "verify_app_name"
+test "$BRU_APP_NAME" = "$NAME"
+bru_assert $? "test_base" "verify_app_name"
 
 SXT_IS_BASE_SOURCED=true
 export SXT_IS_BASE_SOURCED

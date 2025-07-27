@@ -1,26 +1,26 @@
 #!/bin/bash
 
-FIXTURE_NAME="test_guard_is_command"
+FIXTURE_NAME="sweep_command"
 source "$TEST_ROOT/base.sh"
+echo "${BRU_CYAN}RUN_TEST${BRU_CLEAR}: $FIXTURE_NAME"
 
-test_command_exist() {
-  sx_is_command cat
-}
+# verify api can load
+bru_defined sweep_command
+bru_assert $? $FIXTURE_NAME "sweep_command_defined"
 
-test_command_not_exist() {
+# positive case
+sweep_command cat
+bru_assert $? $FIXTURE_NAME "sweep_command_when_command_defined"
+
+catch_exit_when_command_undefined() {
   (
-    sx_is_command command_does_not_exits 2> /dev/null
+    sweep_command command_does_not_exits 2> /dev/null
     return 0
   ) # capture the exit
   test $? -eq 1
   return $?
 }
 
-sxt_assert_function_defined sx_is_command
-sxt_verify $? $FIXTURE_NAME "fn_sx_is_command_defined"
-
-test_command_exist
-sxt_verify $? $FIXTURE_NAME "test_command_exist"
-
-test_command_not_exist
-sxt_verify $? $FIXTURE_NAME "test_command_not_exist"
+# negative case
+catch_exit_when_command_undefined
+bru_assert $? $FIXTURE_NAME "sweep_command_when_command_undefined"

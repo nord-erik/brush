@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# sx_check is used when you want to make sure that previous command exited without any failures
+# sweep_ok is used when you want to make sure that previous command exited without any failure
+# you just pass $? and a message, sweep_ok manage the rest.
 
-sx_check() {
+sweep_ok() {
   local code=$1
   local msg=$2
 

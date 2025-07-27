@@ -51,6 +51,13 @@ if echo "$test_log" | grep -q "FAIL"; then
   exit 4
 fi
 
+if echo "$test_log" | grep -q "CRASHED"; then
+  echo "$test_log"
+  echo ""
+  echo "error - tests are crashing"
+  exit 4
+fi
+
 if [ "$1" == "VERBOSE" ]; then
   echo "POLISH SUCCESS WITH EXIT CODE: 0"
 else

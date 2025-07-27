@@ -1,80 +1,107 @@
 #!/bin/bash
 
-FIXTURE_NAME="test_log"
+FIXTURE_NAME="logger"
 source "$TEST_ROOT/base.sh"
+echo "${BRU_CYAN}RUN_TEST${BRU_CLEAR}: $FIXTURE_NAME"
 
-# make sure log fns are defined
-test_log_function_is_defined() {
-  local fn=$1
-
-  sxt_assert_function_defined "$fn"
-  sxt_verify $? $FIXTURE_NAME "fn_${fn}_defined"
+# this is different for diffrent systems
+__caputre_log() {
+  journalctl -n 5 --reverse --no-pager
 }
 
-expect_log_to_actually_log() {
-  local logger_under_test=$1
-  local message=$2
-  local expected=$3
-  local actual_terminal actual_log keyword
+test_log_can_print() {
+  local log_fn=$1
+  local log_input=$2
+  local expected_output=$3
+  local buf_terminal
 
-  case $logger_under_test in
-  sx_error)
-    keyword="(ERROR)"
+  buf_terminal=$($log_fn "$log_input")
+
+  # shellcheck disable=SC2181
+  if test "$buf_terminal" = "$expected_output"; then
+    return 0
+  fi
+
+  echo "got:  [$buf_terminal]"
+  echo "want: [$expected_output]"
+
+  return 1
+}
+
+test_log_can_logger() {
+  local log_fn=$1
+  local log_input=$2
+  local buf_logger expected_keyword expected_log
+
+  case $log_fn in
+  bru_error)
+    expected_keyword="(ERROR)"
     ;;
-  sx_warn)
-    keyword="(WARNING)"
+  bru_warning)
+    expected_keyword="(WARNING)"
     ;;
-  sx_notice)
-    keyword="(NOTICE)"
+  bru_notice)
+    expected_keyword="(NOTICE)"
     ;;
-  sx_log)
-    keyword="(INFO)"
+  bru_log)
+    expected_keyword="(INFO)"
     ;;
   *)
-    keyword="unknown_logger_under_test"
+    expected_keyword="unknown_logger_under_test"
     ;;
   esac
 
-  actual_terminal=$($logger_under_test "$message")
-  actual_log="$(journalctl -n 5 --reverse --no-pager)"
-  echo "$actual_log" | grep --quiet "$keyword $message"
-  sxt_verify $? $FIXTURE_NAME "${logger_under_test}_can_log_properly"
+  # produce the logs and capture it
+  $log_fn "$log_input"
+  buf_logger="$(__caputre_log)"
+  expected_log="$expected_keyword $log_input"
 
   # shellcheck disable=SC2181
-  if [ $? -ne 0 ]; then
-    echo "got:  [$actual_log]"
-    echo "want: [$keyword $message]"
+  if echo "$buf_logger" | grep --quiet "$expected_log"; then
+    return 0
   fi
 
-  test "$actual_terminal" = "$expected"
-  sxt_verify $? $FIXTURE_NAME "${logger_under_test}_can_produce_proper_terminal_message"
+  echo "got:  [$buf_logger]"
+  echo "want: [$expected_log]"
 
-  # shellcheck disable=SC2181
-  if [ $? -ne 0 ]; then
-    echo "got:  [$actual_terminal]"
-    echo "want: [$expected]"
-  fi
+  return 1
 }
 
-# fns exists
-test_log_function_is_defined sx_error
-test_log_function_is_defined sx_warn
-test_log_function_is_defined sx_notice
-test_log_function_is_defined sx_log
+# verify api can load
+bru_defined bru_error
+bru_assert $? $FIXTURE_NAME "bru_error_defined"
 
-# fns actually log
-TEST_MESSAGE="test_log_error_message_eeaecba723"
-TEST_EXPECTED="${SXC_RED}error:$SXC_CLEAR $TEST_MESSAGE"
-expect_log_to_actually_log sx_error $TEST_MESSAGE "$TEST_EXPECTED"
+bru_defined bru_warning
+bru_assert $? $FIXTURE_NAME "bru_warning_defined"
 
-TEST_MESSAGE="test_log_warning_message_8fb3a501cb"
-TEST_EXPECTED="${SXC_YELLOW}warning:$SXC_CLEAR $TEST_MESSAGE"
-expect_log_to_actually_log sx_warn $TEST_MESSAGE "$TEST_EXPECTED"
+bru_defined bru_notice
+bru_assert $? $FIXTURE_NAME "bru_notice_defined"
 
-TEST_MESSAGE="test_log_notice_message_25b55b7d2a"
-TEST_EXPECTED="${SXC_BLUE}notice:$SXC_CLEAR $TEST_MESSAGE"
-expect_log_to_actually_log sx_notice $TEST_MESSAGE "$TEST_EXPECTED"
+bru_defined bru_log
+bru_assert $? $FIXTURE_NAME "bru_log_defined"
 
-TEST_MESSAGE="test_log_info_message_da2bc4d023"
-TEST_EXPECTED="${SXC_WHITE}info:$SXC_CLEAR $TEST_MESSAGE"
-expect_log_to_actually_log sx_log $TEST_MESSAGE "$TEST_EXPECTED"
+# verify terminal print
+test_log_can_print bru_error eeaecba723 "${BRU_RED}error:$BRU_CLEAR eeaecba723"
+bru_assert $? $FIXTURE_NAME "bru_error_terminal_output"
+
+test_log_can_print bru_warning 8fb3a501cb "${BRU_YELLOW}warning:$BRU_CLEAR 8fb3a501cb"
+bru_assert $? $FIXTURE_NAME "bru_warning_terminal_output"
+
+test_log_can_print bru_notice 25b55b7d2a "${BRU_BLUE}notice:$BRU_CLEAR 25b55b7d2a"
+bru_assert $? $FIXTURE_NAME "bru_notice_terminal_output"
+
+test_log_can_print bru_log da2bc4d023 "${BRU_WHITE}info:$BRU_CLEAR da2bc4d023"
+bru_assert $? $FIXTURE_NAME "bru_log_terminal_output"
+
+# verify system logs
+test_log_can_logger bru_error eeaecba723
+bru_assert $? $FIXTURE_NAME "bru_error_logger_output"
+
+test_log_can_logger bru_warning 8fb3a501cb
+bru_assert $? $FIXTURE_NAME "bru_warning_logger_output"
+
+test_log_can_logger bru_notice 25b55b7d2a
+bru_assert $? $FIXTURE_NAME "bru_notice_logger_output"
+
+test_log_can_logger bru_log da2bc4d023
+bru_assert $? $FIXTURE_NAME "bru_log_logger_output"
