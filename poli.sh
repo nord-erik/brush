@@ -11,7 +11,6 @@
 #   4 => tests fail
 # 112 => your file system does not work
 
-
 # load brush
 HOOK_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 cd "$HOOK_ROOT" || exit 112
