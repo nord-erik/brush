@@ -13,7 +13,10 @@ mock_root() {
 brush_defined sweep_root
 brush_assert $? $FIXTURE_NAME "sweep_root_defined"
 
-(sweep_root) # capture the exit
+(
+  sweep_root
+  return 0
+) # capture the exit
 test $? -eq 1
 brush_assert $? $FIXTURE_NAME "exits_when_not_root"
 
