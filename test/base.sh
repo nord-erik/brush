@@ -22,7 +22,7 @@ __brush_report_fail() {
   local test_file_name=$1
   local test_name=$2
 
-  echo -e "\t${BRUSH_RED}FAIL    ::::${BRUSH_CLEAR}    $test_file_name # $test_name"
+  echo -e "\t${BRUSH_RED}FAIL\t${BRUSH_CLEAR}$test_file_name # $test_name"
 }
 
 # report that a test has passed
@@ -30,7 +30,7 @@ __brush_report_pass() {
   local test_file_name=$1
   local test_name=$2
 
-  echo -e "\t${BRUSH_GREEN}OK  ${BRUSH_CLEAR} $test_file_name / $test_name"
+  echo -e "\t${BRUSH_GREEN}OK\t${BRUSH_CLEAR}$test_file_name / $test_name"
 }
 
 # assert code is 0 => test pass, if other => test fail
@@ -65,7 +65,7 @@ brush_skip() {
   local test_file_name=$1
   local test_name=$2
 
-  echo -e "\t${BRUSH_YELLOW}SKIP${BRUSH_CLEAR} $test_file_name / $test_name"
+  echo -e "\t${BRUSH_YELLOW}SKIP\t${BRUSH_CLEAR}$test_file_name / $test_name"
 }
 
 # verify that app name is propagated when you initiate
