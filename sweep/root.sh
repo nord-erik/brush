@@ -6,7 +6,13 @@
 sweep_root() {
   local should_be=$1
   local is_root final_app_name
-  is_root="$(id -u)"
+
+  # error message
+  if [ "$BRUSH_APP_NAME" = "$BRUSH_DEFAULT_APP_NAME" ]; then
+    final_app_name="this script"
+  else
+    final_app_name="'$BRUSH_APP_NAME'"
+  fi
 
   # default argument 1 value
   if [ -z "$should_be" ]; then
@@ -21,35 +27,32 @@ sweep_root() {
     exit 1
   fi
 
-  # error message
-  if [ "$BRUSH_APP_NAME" = "$BRUSH_DEFAULT_APP_NAME" ]; then
-    final_app_name="this script"
-  else
-    final_app_name="'$BRUSH_APP_NAME'"
-  fi
-
   # actual logic to determine if OK -- first stringify the "id -u"
-  if [ "$is_root" -eq 0 ]; then
+  if [ "$(id -u)" -eq 0 ]; then
     is_root="true"
   else
     is_root="false"
   fi
 
-  if [ "$is_root" = "true" ]; then
-    # case when root
+  case $is_root in
+  true)
     if [ "$should_be" = "true" ]; then
       return 0
-    else
-      brush_error "you must be user in order to run $final_app_name, please re-run without root"
     fi
-  else
-    # case when NOT root
-    if [ "$should_be" = "true" ]; then
-      brush_error "you must be root in order to run $final_app_name, please re-run with sudo"
-    else
+
+    brush_error "you must be user in order to run $final_app_name, please re-run without root"
+    ;;
+  false)
+    if [ "$should_be" != "true" ]; then
       return 0
     fi
-  fi
+
+    brush_error "you must be root in order to run $final_app_name, please re-run with sudo"
+    ;;
+  *)
+    brush_error "unexpected case of quantum root"
+    ;;
+  esac
 
   exit 1
 }
