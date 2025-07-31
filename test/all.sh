@@ -17,6 +17,7 @@ source "$TEST_ROOT/base.sh"
 run_test logger_test.sh
 run_test sweep_command_test.sh
 run_test sweep_env_test.sh
+run_test sweep_git_test.sh
 run_test sweep_nok_test.sh
 run_test sweep_ok_test.sh
 run_test sweep_sudo_test.sh
