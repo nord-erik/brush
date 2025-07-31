@@ -34,3 +34,8 @@ source "$SWEEP_ROOT/env.sh"
 source "$SWEEP_ROOT/nok.sh"
 source "$SWEEP_ROOT/ok.sh"
 source "$SWEEP_ROOT/sudo.sh"
+
+# git add on
+source "$SWEEP_ROOT/git/is_clean.sh"
+source "$SWEEP_ROOT/git/is_init.sh"
+source "$SWEEP_ROOT/git/is_on.sh"
