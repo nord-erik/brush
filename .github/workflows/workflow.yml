@@ -3,7 +3,6 @@ on:
   push:
     branches: [ "huve" ]
   pull_request:
-    branches: [ "huve" ]
 
 jobs:
   hook:
