@@ -56,3 +56,4 @@ this mechanic works because if `sweep_nok 0` returns rather than exits, then `re
 execute. which is finally checked for in `test $? -eq 1`, ultimately test-asserted.
 
 please PR this repo if you know a more consistent and readable way to test that functions exits.
+there is probably some setup using `trap` that can be used.....
