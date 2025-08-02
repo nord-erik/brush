@@ -33,15 +33,21 @@ test $? -eq 1
 brush_assert $? $FIXTURE_NAME "sweep_git_is_not_init"
 
 # test is_init positives
-for key in "${!temporary_git_paths[@]}"; do
-  if [ "$key" != "no_git_repo" ]; then
-    (
-      cd "${temporary_git_paths[$key]}" || return 1
-      sweep_git_is_init
-    )
-    brush_assert $? $FIXTURE_NAME "sweep_git_is_init[$key]"
-  fi
-done
+(
+  cd "${temporary_git_paths[a_git_repo]}" || return 1
+  sweep_git_is_init
+)
+brush_assert $? $FIXTURE_NAME "sweep_git_is_init[a_git_repo]"
+(
+  cd "${temporary_git_paths[a_git_repo_dirty]}" || return 1
+  sweep_git_is_init
+)
+brush_assert $? $FIXTURE_NAME "sweep_git_is_init[a_git_repo_dirty]"
+(
+  cd "${temporary_git_paths[a_git_repo_with_branches]}" || return 1
+  sweep_git_is_init
+)
+brush_assert $? $FIXTURE_NAME "sweep_git_is_init[a_git_repo_with_branches]"
 
 # test is_clean negative
 (
@@ -59,15 +65,16 @@ test $? -eq 1
 brush_assert $? $FIXTURE_NAME "sweep_git_not_clean_when_non_git"
 
 # test is_clean positives
-for key in "${!temporary_git_paths[@]}"; do
-  if [ "$key" != "a_git_repo_dirty" ] && [ "$key" != "no_git_repo" ]; then
-    (
-      cd "${temporary_git_paths[$key]}" || return 1
-      sweep_git_is_clean
-    )
-    brush_assert $? $FIXTURE_NAME "sweep_git_is_clean[$key]"
-  fi
-done
+(
+  cd "${temporary_git_paths[a_git_repo]}" || return 1
+  sweep_git_is_clean
+)
+brush_assert $? $FIXTURE_NAME "sweep_git_is_clean[a_git_repo]"
+(
+  cd "${temporary_git_paths[a_git_repo_with_branches]}" || return 1
+  sweep_git_is_clean
+)
+brush_assert $? $FIXTURE_NAME "sweep_git_is_clean[a_git_repo]"
 
 # test is_on negatives
 (
@@ -75,14 +82,12 @@ done
 )
 test $? -eq 1
 brush_assert $? $FIXTURE_NAME "sweep_git_is_on_invalid_argument"
-
 (
   cd "${temporary_git_paths[a_git_repo_with_branches]}" || return 0
   sweep_git_is_on trunk
 )
 test $? -eq 1
 brush_assert $? $FIXTURE_NAME "sweep_git_is_not_on"
-
 (
   cd "${temporary_git_paths[no_git_repo]}" || return 0
   sweep_git_is_on trunk
@@ -91,14 +96,15 @@ test $? -eq 1
 brush_assert $? $FIXTURE_NAME "sweep_git_is_on_when_non_git"
 
 # test is_on positives
-for key in "${!temporary_git_paths[@]}"; do
-  if [ "$key" != "a_git_repo_with_branches" ] && [ "$key" != "no_git_repo" ]; then
-    (
-      cd "${temporary_git_paths[$key]}" || return 1
-      sweep_git_is_on trunk
-    )
-    brush_assert $? $FIXTURE_NAME "sweep_git_is_on[$key]"
-  fi
-done
+(
+  cd "${temporary_git_paths[a_git_repo]}" || return 1
+  sweep_git_is_on trunk
+)
+brush_assert $? $FIXTURE_NAME "sweep_git_is_on[a_git_repo]"
+(
+  cd "${temporary_git_paths[a_git_repo_dirty]}" || return 1
+  sweep_git_is_on trunk
+)
+brush_assert $? $FIXTURE_NAME "sweep_git_is_on[a_git_repo_dirty]"
 
 tear_down_file_tree
