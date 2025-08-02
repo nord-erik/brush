@@ -30,7 +30,7 @@ setup_file_tree
   sweep_git_is_init
 )
 test $? -eq 1
-brush_assert $? $FIXTURE_NAME "sweep_git_is_init_when_not"
+brush_assert $? $FIXTURE_NAME "sweep_git_is_not_init"
 
 # test is_init positives
 for key in "${!temporary_git_paths[@]}"; do
@@ -49,11 +49,18 @@ done
   sweep_git_is_clean
 )
 test $? -eq 1
-brush_assert $? $FIXTURE_NAME "sweep_git_is_clean_when_not"
+brush_assert $? $FIXTURE_NAME "sweep_git_not_clean"
+
+(
+  cd "${temporary_git_paths[no_git_repo]}" || return 0
+  sweep_git_is_clean
+)
+test $? -eq 1
+brush_assert $? $FIXTURE_NAME "sweep_git_not_clean_when_non_git"
 
 # test is_clean positives
 for key in "${!temporary_git_paths[@]}"; do
-  if [ "$key" != "a_git_repo_dirty" ]; then
+  if [ "$key" != "a_git_repo_dirty" ] && [ "$key" != "no_git_repo" ]; then
     (
       cd "${temporary_git_paths[$key]}" || return 1
       sweep_git_is_clean
@@ -62,17 +69,30 @@ for key in "${!temporary_git_paths[@]}"; do
   fi
 done
 
-# test is_on negative
+# test is_on negatives
+(
+  sweep_git_is_on
+)
+test $? -eq 1
+brush_assert $? $FIXTURE_NAME "sweep_git_is_on_invalid_argument"
+
 (
   cd "${temporary_git_paths[a_git_repo_with_branches]}" || return 0
   sweep_git_is_on trunk
 )
 test $? -eq 1
-brush_assert $? $FIXTURE_NAME "swee_git_is_on_when_not"
+brush_assert $? $FIXTURE_NAME "sweep_git_is_not_on"
+
+(
+  cd "${temporary_git_paths[no_git_repo]}" || return 0
+  sweep_git_is_on trunk
+)
+test $? -eq 1
+brush_assert $? $FIXTURE_NAME "sweep_git_is_on_when_non_git"
 
 # test is_on positives
 for key in "${!temporary_git_paths[@]}"; do
-  if [ "$key" != "a_git_repo_with_branches" ]; then
+  if [ "$key" != "a_git_repo_with_branches" ] && [ "$key" != "no_git_repo" ]; then
     (
       cd "${temporary_git_paths[$key]}" || return 1
       sweep_git_is_on trunk
