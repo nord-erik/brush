@@ -74,7 +74,7 @@ brush_assert $? $FIXTURE_NAME "sweep_git_is_clean[a_git_repo]"
   cd "${temporary_git_paths[a_git_repo_with_branches]}" || return 1
   sweep_git_is_clean
 )
-brush_assert $? $FIXTURE_NAME "sweep_git_is_clean[a_git_repo]"
+brush_assert $? $FIXTURE_NAME "sweep_git_is_clean[a_git_repo_with_branches]"
 
 # test is_on negatives
 (
