@@ -19,7 +19,6 @@ For example if we want to 100% assert that we can execute this repo's hook:
 sweep_command bash
 sweep_command shfmt
 sweep_command shellcheck
-sweep_file x poli.sh
 
 ./poli.sh
 ```
