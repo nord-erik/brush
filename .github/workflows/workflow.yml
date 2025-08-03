@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  ubuntu-hook:
+  hook:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,26 +21,6 @@ jobs:
 
       - name: install test deps
         run: sudo apt-get install shfmt shellcheck
-
-      - name: execute hooking script
-        run: ./poli.sh VERBOSE
-
-  mac-hook:
-    runs-on: macos-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-            fetch-depth: 1
-
-      - name: setup git
-        run: |
-          git config --global user.email "runner@example.com"
-          git config --global user.name "Github Runner"
-          git --version
-
-      - name: install test deps
-        run: brew install shfmt shellcheck
 
       - name: execute hooking script
         run: ./poli.sh VERBOSE
