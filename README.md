@@ -14,7 +14,7 @@ unwanted initial state.
 in order to truly rely on your scripts, this type of defensive programming is very effective.
 so using brush you simply save on writing 200 lines of bash that you likely need to write anyways.
 
-## example
+# getting started
 
 simply source the minified build output; bru.sh and then you have access to all sweeps.
 for example if we want to 100% assert that we can execute this repo's hook:
@@ -45,7 +45,17 @@ scp latest.zip bot@build_server:~/builds
 sweep_ok $? "scp latest build to build server failed"
 ```
 
-# how to test
+you can also source the script directly from e.g. curl to select any published version
+
+```bash
+#!/bin/env bash
+
+source <(curl --silent https://raw.githubusercontent.com/nord-erik/brush/refs/tags/v0.0.1/bru.sh)
+brush_notice "successfully sourced from curl"
+sweep_ok $?
+```
+
+# testing
 
 the CI/CD workloads will always test pushed commits. but if you want to test locally, you can do so:
 
