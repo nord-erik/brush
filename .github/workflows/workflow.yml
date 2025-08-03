@@ -20,7 +20,10 @@ jobs:
           git --version
 
       - name: install test deps
-        run: sudo apt-get install shfmt shellcheck
+        run: |
+          sudo printf "%s\n" "set man-db/auto-update false" | sudo debconf-communicate
+          sudo rm /var/lib/man-db/auto-update
+          sudo apt-get install shfmt shellcheck
 
       - name: execute hooking script
         run: ./poli.sh VERBOSE
