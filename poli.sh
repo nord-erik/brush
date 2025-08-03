@@ -11,18 +11,24 @@
 # load brush library
 POLISH_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 cd "$POLISH_ROOT" || exit 112
-source "$POLISH_ROOT"/bru.sh
+
+if [ ! -f "$POLISH_ROOT/bru.sh" ]; then
+  printf "%s\n" "where is bru? build bru please"
+  exit 1
+fi
+
+source "$POLISH_ROOT/bru.sh"
 
 # check this script's dependencies
 sweep_command shellcheck shfmt git
 
 _run_linter_on_all_files() {
-  find . -type f -name "*.sh" -exec shellcheck -- {} +
+  find . -type f ! -name "bru.sh" -name "*.sh" -exec shellcheck -- {} +
   return $?
 }
 
 _run_formatter_on_all_files() {
-  shfmt --space-redirects --diff --indent 2 .
+  shfmt --space-redirects --diff --indent 2 src test build.sh poli.sh
   return $?
 }
 
