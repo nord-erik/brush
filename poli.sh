@@ -16,7 +16,7 @@ source "$POLISH_ROOT"/bru.sh
 # check this script's dependencies
 sweep_command shellcheck
 sweep_command shfmt
-sweep_commang git
+sweep_command git
 
 _run_linter_on_all_files() {
   find . -type f -name "*.sh" -exec shellcheck -- {} +
