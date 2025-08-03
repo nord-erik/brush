@@ -22,10 +22,9 @@ _collect_brush() {
 _staticalise_sources() {
   local repo_root=$1
   local build_brush_root build_sweeps_root build_sources build_sources_array source_file source_file_relative_path
+
   build_brush_root=$repo_root/src
   build_sweeps_root=$repo_root/src/sweeps
-
-  # expand sources to be static
   build_sources=$(grep "source" bru.sh)
   sweep_ok $? "staticalise_sources cannot find any sources"
 
@@ -63,7 +62,20 @@ _minify_source() {
 }
 
 _compress_export() {
+  local export_statements export_statements_array
 
+  export_statements=$(grep -E "^export " bru.sh)
+  sweep_ok $? "compress_exports did not find any exports"
+
+  # awk for all but first column (which is grepped to be 'export')
+  # shellcheck disable=SC2207
+  export_statements_array=($(echo "$export_statements" | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'))
+
+  if ! sed -i '/^\(export \)/d' bru.sh; then
+    return 1
+  fi
+
+  printf "export %s\n" "${export_statements_array[*]}" >> bru.sh
 }
 
 build() {
@@ -76,6 +88,8 @@ build() {
   sweep_ok $? "build failed on staticalisation of sources"
   _minify_source
   sweep_ok $? "build failed on minify step"
+  _compress_export
+  sweep_ok $? "build failed on compress exports"
 }
 
 if build "$REPO_ROOT"; then
