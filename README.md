@@ -36,3 +36,9 @@ shellcheck -- linter
 ```bash
 sudo dnf install shellcheck
 ```
+
+git -- to test git addon
+
+```
+sudo dnf install git
+```
