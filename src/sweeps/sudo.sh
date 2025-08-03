@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # sweep_sudo checks if the user is root, for when that is required
 # can also assert that it should not be root

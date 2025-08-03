@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # git is init makes sure that current working dir is part of init'ed git repo
 

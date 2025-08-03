@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 # shellcheck disable=SC2319
 
 FIXTURE_NAME="sweep_sudo"

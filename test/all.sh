@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # execute this script in order to test all tests
 # when you add new test files, add them here

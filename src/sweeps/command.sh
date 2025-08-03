@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # use this sweep when you need to make sure that the context has a specific command
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # these constats that can be freely accessed accross the bru.sh library
 

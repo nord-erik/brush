@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # git is in makes sure that you are checked in on a specific branch
 

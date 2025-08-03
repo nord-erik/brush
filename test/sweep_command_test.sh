@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 FIXTURE_NAME="sweep_command"
 printf "%s\n" "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"

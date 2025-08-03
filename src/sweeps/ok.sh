@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # sweep_ok is used when you want to make sure that previous command exited without any failure
 # you just pass $? and a message, sweep_ok manage the rest.

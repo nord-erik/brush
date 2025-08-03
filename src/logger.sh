@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # this script contains logging utilities that can be used by anyone really
 # functions prefixed "_" are not meant to be used directly, but who can stop you

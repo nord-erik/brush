@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # env is used to make sure that passed variable name is set
 

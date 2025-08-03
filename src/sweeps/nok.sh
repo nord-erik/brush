@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # sweep_nok is used when you want to make sure that previous command exited with failure
 # you just pass $? and a message, sweep_nok manage the rest.

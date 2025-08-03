@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # error codes signifiy outcomes:
 #   0 => all ok

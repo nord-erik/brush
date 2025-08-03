@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # git is clean makes sure that you are on a clean working state
 

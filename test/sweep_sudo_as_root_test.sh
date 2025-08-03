@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # this file contains shenanigans to spawn child processes with sudo rights
 # in order to properly function, all required funcs in the call stack of sweep_sudo has to be declared

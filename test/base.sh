@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # this file contains utilities and variables and etc that is useful for all testing
 # all test scripts should soruce this to gain the common utilities

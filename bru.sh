@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # this script serves as a sort fo import all sweeps / import the whole lib
 # source this file and all sweeps gets loaded

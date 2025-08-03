@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 declare -A temporary_git_paths
 
