@@ -3,3 +3,5 @@
 disable=SC1091
 # this error tries to tell me how to use grep, which is not shell
 disable=SC2126
+# this error nags me that I cannot use $? after test, which is annoying in tests
+disable=SC2319

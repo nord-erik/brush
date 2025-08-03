@@ -14,9 +14,7 @@ cd "$POLISH_ROOT" || exit 112
 source "$POLISH_ROOT"/bru.sh
 
 # check this script's dependencies
-sweep_command shellcheck
-sweep_command shfmt
-sweep_command git
+sweep_command shellcheck shfmt git
 
 _run_linter_on_all_files() {
   find . -type f -name "*.sh" -exec shellcheck -- {} +

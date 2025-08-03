@@ -1,5 +1,4 @@
 #!/bin/env bash
-# shellcheck disable=SC2319
 
 # tests the whole git addon -- to let all sweeps use the same tmp file structure
 

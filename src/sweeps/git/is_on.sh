@@ -7,7 +7,6 @@ sweep_git_is_on() {
   local current_branch current_dir
 
   test -z "$current_branch"
-  # shellcheck disable=SC2319
   sweep_ok $? "you must pass an expected branch name to 'sweep_git_is_on'"
 
   current_dir="$(pwd)"

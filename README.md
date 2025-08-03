@@ -19,9 +19,7 @@ so using brush you simply save on writing 200 lines of bash that you likely need
 for example if we want to 100% assert that we can execute this repo's hook:
 
 ```bash
-sweep_command bash
-sweep_command shfmt
-sweep_command shellcheck
+sweep_command bash shfmt shellcheck
 
 ./poli.sh
 ```
@@ -30,13 +28,11 @@ or we need to make sure that a git repo is clean before we do operations.
 e.g. before we build, package and release some arbritrary software.
 
 ```bash
-sweep_command git
-sweep_command scp
-sweep_command zip
-
 cd to_a_repo
 
+sweep_command git scp zip
 sweep_git_is_clean
+
 git pull
 sweep_ok $? "could not fetch latest changes from remote"
 

@@ -1,6 +1,5 @@
 #!/bin/env bash
 # shellcheck disable=SC2034
-# shellcheck disable=SC2319
 
 FIXTURE_NAME="sweep_env"
 printf "%s\n" "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
