@@ -4,19 +4,13 @@
 # functions prefixed "_" are not meant to be used directly, but who can stop you
 
 _brush_system_logger() {
-  local prio=$1
-  local suffix=$2
-  local msg=$3
+  local prio=$1 suffix=$2 msg=$3
 
   logger -t "$BRUSH_APP_NAME" -p "user.$prio" "[$$] $suffix $msg"
 }
 
 _brush_terminal_print() {
-  local colour=$1
-  local suffix=$2
-  local msg=$3
-  local to_stderr=$4 # optional
-
+  local colour=$1 suffix=$2 msg=$3 to_stderr=$4
   msg=$(printf "%b %s" "$colour$suffix$BRUSH_CLEAR" "$msg")
 
   if test -z "$to_stderr"; then

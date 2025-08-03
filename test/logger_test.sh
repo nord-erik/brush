@@ -9,10 +9,7 @@ _caputre_log() {
 }
 
 test_log_can_print() {
-  local log_fn=$1
-  local log_input=$2
-  local expected_output=$3
-  local should_stderr=$4
+  local log_fn=$1 log_input=$2 expected_output=$3 should_stderr=$4
   local buf_terminal
 
   if [ "$should_stderr" = "true" ]; then
@@ -33,8 +30,7 @@ test_log_can_print() {
 }
 
 test_log_can_logger() {
-  local log_fn=$1
-  local log_input=$2
+  local log_fn=$1 log_input=$2
   local buf_logger expected_keyword expected_log
 
   case $log_fn in

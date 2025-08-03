@@ -4,9 +4,7 @@
 # you just pass $? and a message, sweep_ok manage the rest.
 
 sweep_ok() {
-  local code=$1
-  local msg=$2
-  local custom_error_code=$3
+  local code=$1 msg=$2 custom_error_code=$3
 
   if [ -z "$custom_error_code" ]; then
     custom_error_code=1

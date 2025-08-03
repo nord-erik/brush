@@ -21,16 +21,11 @@ BRUSH_LIGHT_CYAN=$'\033[96m'
 BRUSH_LIGHT_WHITE=$'\033[97m'
 BRUSH_CLEAR=$'\033[0m'
 _brush_system_logger(){
-local prio=$1
-local suffix=$2
-local msg=$3
+local prio=$1 suffix=$2 msg=$3
 logger -t "$BRUSH_APP_NAME" -p "user.$prio" "[$$] $suffix $msg"
 }
 _brush_terminal_print(){
-local colour=$1
-local suffix=$2
-local msg=$3
-local to_stderr=$4
+local colour=$1 suffix=$2 msg=$3 to_stderr=$4
 msg=$(printf "%b %s" "$colour$suffix$BRUSH_CLEAR" "$msg")
 if test -z "$to_stderr";then
 printf "%s\n" "$msg"
@@ -70,9 +65,7 @@ test ${!env_var_name+1}
 sweep_ok $? "required env variable '$env_var_name' is not set!"
 }
 sweep_nok(){
-local code=$1
-local msg=$2
-local custom_error_code=$3
+local code=$1 msg=$2 custom_error_code=$3
 if [ -z "$custom_error_code" ];then
 custom_error_code=1
 fi
@@ -84,9 +77,7 @@ exit $custom_error_code
 fi
 }
 sweep_ok(){
-local code=$1
-local msg=$2
-local custom_error_code=$3
+local code=$1 msg=$2 custom_error_code=$3
 if [ -z "$custom_error_code" ];then
 custom_error_code=1
 fi

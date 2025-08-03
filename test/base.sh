@@ -16,30 +16,27 @@ BRUSH_TEST_PRINTS_PASSES=$1
 
 # report that a test has failed
 _brush_report_fail() {
-  local test_file_name=$1
-  local test_name=$2
+  local test_file_name=$1 test_name=$2
 
   printf "\t%b%s%b\t%s\n" "$BRUSH_RED" "FAIL" "$BRUSH_CLEAR" "$test_file_name # $test_name"
 }
 
 # report that a test has passed
 _brush_report_pass() {
-  local test_file_name=$1
-  local test_name=$2
+  local test_file_name=$1 test_name=$2
 
   printf "\t%b%s%b\t%s\n" "$BRUSH_GREEN" "OK" "$BRUSH_CLEAR" "$test_file_name / $test_name"
 }
 
 brush_test_fixture() {
   local fixture_name=$1
+
   printf "%b%s%b%s\n" "$BRUSH_CYAN" "RUN_TEST" "$BRUSH_CLEAR" ": $fixture_name"
 }
 
 # assert code is 0 => test pass, if other => test fail
 brush_assert() {
-  local code=$1
-  local test_file_name=$2
-  local test_name=$3
+  local code=$1 test_file_name=$2 test_name=$3
 
   # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
@@ -64,8 +61,7 @@ brush_defined() {
 }
 
 brush_skip() {
-  local test_file_name=$1
-  local test_name=$2
+  local test_file_name=$1 test_name=$2
 
   printf "\t%b%s%b\t%s\n" "$BRUSH_YELLOW" "SKIP" "$BRUSH_CLEAR" "$test_file_name / $test_name"
 }

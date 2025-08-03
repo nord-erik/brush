@@ -42,8 +42,7 @@ expect_message_to_print() {
 }
 
 expect_message_to_be_stderr() {
-  local buf_out
-  local buf_err
+  local buf_out buf_err
 
   buf_out=$( (sweep_nok 0 "deliberate testing error") 2> /dev/null)
   buf_err=$( (sweep_nok 0 "deliberate testing error") 2>&1 > /dev/null)

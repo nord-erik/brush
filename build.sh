@@ -80,6 +80,7 @@ _compress_export() {
 
 build() {
   local repo_root=$1
+
   _clear_build
   sweep_ok $? "build failed on clear build"
   _collect_brush

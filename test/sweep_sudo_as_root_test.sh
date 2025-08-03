@@ -3,7 +3,6 @@
 # this file contains shenanigans to spawn child processes with sudo rights
 # in order to properly function, all required funcs in the call stack of sweep_sudo has to be declared
 # e.g. all logging and error printing wrappers, and sweep_sudo itself
-#
 # this test fixture is skipped if there are no cached sudo credentials
 
 FIXTURE_NAME="sweep_sudo_as_root"

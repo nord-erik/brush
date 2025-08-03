@@ -6,6 +6,7 @@ declare -A temporary_git_paths
 # linux version first, if that fails (because we are on mac), then do mac version
 _create_temporary_dir() {
   local created_dir
+
   created_dir=$(mktemp -d 2> /dev/null || mktemp -d -t 'mytmpdir')
   printf "%s\n" "$created_dir"
 }
