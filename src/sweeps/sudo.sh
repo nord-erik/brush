@@ -8,7 +8,7 @@ sweep_sudo() {
   local is_root final_app_name
 
   # error message
-  if [ "$BRUSH_APP_NAME" = "$BRUSH_DEFAULT_APP_NAME" ]; then
+  if [ "$BRUSH_APP_NAME" = "bru.sh" ]; then
     final_app_name="this script"
   else
     final_app_name="'$BRUSH_APP_NAME'"

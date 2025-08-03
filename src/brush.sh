@@ -7,15 +7,10 @@
 # the passed argument will be the name for the script in log file
 
 BRUSH_APP_NAME=$1
-BRUSH_DEFAULT_APP_NAME="bru.sh"
-
 if [ -z "$BRUSH_APP_NAME" ]; then
-  BRUSH_APP_NAME="$BRUSH_DEFAULT_APP_NAME"
+  BRUSH_APP_NAME="bru.sh"
 fi
-
 export BRUSH_APP_NAME
-# visible for testing
-export BRUSH_DEFAULT_APP_NAME
 
 BRUSH_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 SWEEPS_ROOT="$BRUSH_ROOT/sweeps"
