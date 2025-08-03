@@ -130,28 +130,25 @@ esac
 exit 1
 }
 sweep_git_is_clean(){
-local git_status current_dir
-current_dir="$(pwd)"
+local git_status
 sweep_git_is_init
 git_status="$(git status --porcelain)"&&test -z "$git_status"
-sweep_ok $? "expected git repo to be clean: $current_dir"
+sweep_ok $? "expected git repo to be clean: $(pwd)"
 }
 sweep_git_is_init(){
-local is_init current_dir
-current_dir="$(pwd)"
+local is_init
 is_init="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
 test "$is_init" == true
-sweep_ok $? "expected this to be a git repo: $current_dir"
+sweep_ok $? "expected this to be a git repo: $(pwd)"
 }
 sweep_git_is_on(){
 local expected_branch=$1
-local current_branch current_dir
+local current_branch
 test -z "$current_branch"
 sweep_ok $? "you must pass an expected branch name to 'sweep_git_is_on'"
-current_dir="$(pwd)"
 sweep_git_is_init
 current_branch="$(git rev-parse --abbrev-ref HEAD)"
 test "$current_branch" == "$expected_branch"
-sweep_ok $? "expected branch '$expected_branch' but was '$current_branch' in git: $current_dir"
+sweep_ok $? "expected branch '$expected_branch' but was '$current_branch' in git: $(pwd)"
 }
 export BRUSH_APP_NAME BRUSH_BLACK BRUSH_RED BRUSH_GREEN BRUSH_YELLOW BRUSH_BLUE BRUSH_MAGENTA BRUSH_CYAN BRUSH_WHITE BRUSH_LIGHT_BLACK BRUSH_LIGHT_RED BRUSH_LIGHT_GREEN BRUSH_LIGHT_YELLOW BRUSH_LIGHT_BLUE BRUSH_LIGHT_MAGENTA BRUSH_LIGHT_CYAN BRUSH_LIGHT_WHITE BRUSH_CLEAR
