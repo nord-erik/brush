@@ -12,7 +12,7 @@ run_test() {
   (source "$TEST_ROOT/$test_file" 2> /dev/null) || printf "%s\n" "$test_file CRASHED!"
 }
 
-# source to keep it as one process -- then || 0 to not crash on test failures
+# source to keep it as one single process, meaning CI can check if it finished properly
 source "$TEST_ROOT/base.sh"
 run_test logger_test.sh
 run_test sweep_command_test.sh

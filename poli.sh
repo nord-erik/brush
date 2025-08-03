@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# set $1 = "VERBOSE" to be less funky...
-# this polishing script will check the code for lint errors and formatting errors, then run all tests
-#
 # error codes signifiy outcomes:
 #   0 => all ok
 #   1 => dependencies not available
@@ -11,28 +8,41 @@
 #   4 => tests fail
 # 112 => your file system does not work
 
-# load brush
-HOOK_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
-cd "$HOOK_ROOT" || exit 112
-source "$HOOK_ROOT"/bru.sh
+# load brush library
+POLISH_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+cd "$POLISH_ROOT" || exit 112
+source "$POLISH_ROOT"/bru.sh
 
-sweep_command shellcheck && sweep_command shfmt
+# check this script's dependencies
+sweep_command shellcheck
+sweep_command shfmt
+sweep_commang git
 
-static_checks() {
-  # run formatter over all sh files
+_run_linter_on_all_files() {
   find . -type f -name "*.sh" -exec shellcheck -- {} +
-  sweep_ok $? "check lint issues" 2
+  return $?
+}
 
+_run_formatter_on_all_files() {
   shfmt --space-redirects --diff --indent 2 .
+  return $?
+}
+
+_static_checks() {
+  _run_linter_on_all_files
+  sweep_ok $? "check linting issues" 2
+
+  _run_formatter_on_all_files
   sweep_ok $? "check formatter issues, or quickly apply with:
         shfmt --space-redirects --write --indent 2 ." 3
 }
 
-testing_run_all() {
-  printf "%s\n" "$("$HOOK_ROOT"/test/all.sh)"
+_run_all_tests() {
+  printf "%s\n" "$("$POLISH_ROOT"/test/all.sh)"
+  return $?
 }
 
-testing_checks() {
+_illustrate_test_report() {
   local test_report=$1
   local number_executed number_found
 
@@ -42,31 +52,28 @@ testing_checks() {
   printf "%s" "$test_report" | grep --quiet "CRASHED"
   sweep_nok $? "tests are crashing" 4
 
-  number_found=$(grep --dereference-recursive --include="*.sh" "brush_assert " "$HOOK_ROOT"/test | wc --lines)
+  # the space after brush_assert is imporant to not include brush_assert's declaration
+  number_found=$(grep --dereference-recursive --include="*.sh" "brush_assert " "$POLISH_ROOT"/test | wc --lines)
   number_executed=$(printf "%s" "$test_report" | grep --extended-regexp "(OK|SKIP)" | wc --lines)
 
   test "$number_found" = "$number_executed"
-  sweep_ok $? "not all tests executed, found $number_found test cases, but only $number_executed was present in test report"
+  sweep_ok $? "not all tests executed, found [$number_found] test cases, but [$number_executed] was present in test report"
 }
 
-polish() {
+_polish() {
   local verbose=$1
   local test_report
 
-  static_checks
-  test_report=$(testing_run_all)
+  _static_checks
+  test_report=$(_run_all_tests)
 
   if [ "$verbose" == "VERBOSE" ]; then
     printf "%s\n" "$test_report"
   fi
 
-  testing_checks "$test_report"
+  _illustrate_test_report "$test_report"
 
-  if [ "$verbose" == "VERBOSE" ]; then
-    printf "POLISH SUCCESS WITH EXIT CODE: 0\n"
-  else
-    printf "%b%s%b\n" "$BRUSH_LIGHT_GREEN" "polish complete" "$BRUSH_CLEAR"
-  fi
+  printf "%b%s%b\n" "$BRUSH_LIGHT_GREEN" "polish complete" "$BRUSH_CLEAR"
 }
 
-polish "$1"
+_polish "$1"

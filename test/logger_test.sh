@@ -4,8 +4,8 @@ FIXTURE_NAME="logger"
 printf "%s\n" "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
 
 # this is different for diffrent systems
-__caputre_log() {
-  journalctl -n 5 --reverse --no-pager
+_caputre_log() {
+  journalctl -n 15 --reverse --no-pager
 }
 
 test_log_can_print() {
@@ -57,7 +57,7 @@ test_log_can_logger() {
 
   # produce the logs and capture it
   $log_fn "$log_input" > /dev/null
-  buf_logger="$(__caputre_log)"
+  buf_logger="$(_caputre_log)"
   expected_log="$expected_keyword $log_input"
 
   # shellcheck disable=SC2181

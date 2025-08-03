@@ -18,7 +18,7 @@ NAME="bru.sh(test)"
 source "$TEST_ROOT/../bru.sh" "$NAME"
 
 # report that a test has failed
-__brush_report_fail() {
+_brush_report_fail() {
   local test_file_name=$1
   local test_name=$2
 
@@ -26,7 +26,7 @@ __brush_report_fail() {
 }
 
 # report that a test has passed
-__brush_report_pass() {
+_brush_report_pass() {
   local test_file_name=$1
   local test_name=$2
 
@@ -41,10 +41,10 @@ brush_assert() {
 
   # shellcheck disable=SC2086
   if [ $code -ne 0 ]; then
-    __brush_report_fail "$test_file_name" "$test_name"
+    _brush_report_fail "$test_file_name" "$test_name"
   else
     if [ $VERBOSE -eq 1 ]; then
-      __brush_report_pass "$test_file_name" "$test_name"
+      _brush_report_pass "$test_file_name" "$test_name"
     fi
   fi
 

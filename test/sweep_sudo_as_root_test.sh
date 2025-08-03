@@ -20,8 +20,8 @@ if can_sudo; then
   # pass along brush_error and sweep_sudo to child process
   (
     sudo bash -c "\
-      $(declare -f __brush_system_logger);\
-      $(declare -f __brush_terminal_print);\
+      $(declare -f _brush_system_logger);\
+      $(declare -f _brush_terminal_print);\
       $(declare -f brush_error);\
       $(declare -f sweep_sudo);\
       sweep_sudo\
@@ -36,8 +36,8 @@ if can_sudo; then
   # pass along brush_error and sweep_sudo to child process
   (
     sudo bash -c "\
-      $(declare -f __brush_system_logger);\
-      $(declare -f __brush_terminal_print);\
+      $(declare -f _brush_system_logger);\
+      $(declare -f _brush_terminal_print);\
       $(declare -f brush_error);\
       $(declare -f sweep_sudo);\
       sweep_sudo false\

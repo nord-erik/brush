@@ -14,28 +14,29 @@ if [ -z "$BRUSH_APP_NAME" ]; then
 fi
 
 export BRUSH_APP_NAME
+# visible for testing
 export BRUSH_DEFAULT_APP_NAME
 
 BRUSH_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
-export BRUSH_ROOT
-
-SWEEP_ROOT="$BRUSH_ROOT/sweep"
-export SWEEP_ROOT
+SWEEPS_ROOT="$BRUSH_ROOT/src/sweeps"
 
 # make sure we load the constants first
-source "$BRUSH_ROOT/consts.sh"
+source "$BRUSH_ROOT/src/consts.sh"
 
 # then we load the logging utilities
-source "$BRUSH_ROOT/logger.sh"
+source "$BRUSH_ROOT/src/logger.sh"
 
 # sweeps (order might matter -- have not tested different order):
-source "$SWEEP_ROOT/command.sh"
-source "$SWEEP_ROOT/env.sh"
-source "$SWEEP_ROOT/nok.sh"
-source "$SWEEP_ROOT/ok.sh"
-source "$SWEEP_ROOT/sudo.sh"
+source "$SWEEPS_ROOT/command.sh"
+source "$SWEEPS_ROOT/env.sh"
+source "$SWEEPS_ROOT/nok.sh"
+source "$SWEEPS_ROOT/ok.sh"
+source "$SWEEPS_ROOT/sudo.sh"
 
 # git add on
-source "$SWEEP_ROOT/git/is_clean.sh"
-source "$SWEEP_ROOT/git/is_init.sh"
-source "$SWEEP_ROOT/git/is_on.sh"
+source "$SWEEPS_ROOT/git/is_clean.sh"
+source "$SWEEPS_ROOT/git/is_init.sh"
+source "$SWEEPS_ROOT/git/is_on.sh"
+
+unset BRUSH_ROOT
+unset SWEEPS_ROOT
