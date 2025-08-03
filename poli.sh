@@ -5,7 +5,8 @@
 #   1 => dependencies not available
 #   2 => shellcheck nags
 #   3 => shfmt nags
-#   4 => tests fail
+#   4 => checked in buid is not latest
+#   5 => tests fail
 # 112 => your file system does not work
 
 # load brush library
@@ -39,6 +40,9 @@ _static_checks() {
   _run_formatter_on_all_files
   sweep_ok $? "check formatter issues, or quickly apply with:
         shfmt --space-redirects --write --indent 2 ." 3
+
+  ./build.sh
+  sweep_git_is_clean
 }
 
 _run_all_tests() {
@@ -51,10 +55,10 @@ _illustrate_test_report() {
   local number_executed number_found
 
   printf "%s" "$test_report" | grep --quiet "FAIL"
-  sweep_nok $? "tests are not passing" 4
+  sweep_nok $? "tests are not passing" 5
 
   printf "%s" "$test_report" | grep --quiet "CRASHED"
-  sweep_nok $? "tests are crashing" 4
+  sweep_nok $? "tests are crashing" 5
 
   # the space after brush_assert is imporant to not include brush_assert's declaration
   number_found=$(grep --dereference-recursive --include="*.sh" "brush_assert " "$POLISH_ROOT"/test | wc --lines)
