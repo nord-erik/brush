@@ -2,7 +2,7 @@
 # shellcheck disable=SC2034
 
 FIXTURE_NAME="sweep_env"
-printf "%s\n" "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
+brush_test_fixture "$FIXTURE_NAME"
 
 # verify api can load
 brush_defined sweep_env

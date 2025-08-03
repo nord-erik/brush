@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 FIXTURE_NAME="logger"
-printf "%s\n" "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
+brush_test_fixture "$FIXTURE_NAME"
 
 # this is different for diffrent systems
 _caputre_log() {

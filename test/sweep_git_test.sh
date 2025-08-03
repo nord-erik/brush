@@ -3,7 +3,7 @@
 # tests the whole git addon -- to let all sweeps use the same tmp file structure
 
 FIXTURE_NAME="sweep_git"
-printf "%s\n" "${BRUSH_CYAN}RUN_TEST${BRUSH_CLEAR}: $FIXTURE_NAME"
+brush_test_fixture "$FIXTURE_NAME"
 
 declare -A temporary_git_paths
 source "$TEST_ROOT/sweep_git_test_fixture.sh"

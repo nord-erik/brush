@@ -16,11 +16,12 @@ so using brush you simply save on writing 200 lines of bash that you likely need
 
 ## example
 
+simply source the minified build output; bru.sh and then you have access to all sweeps.
 for example if we want to 100% assert that we can execute this repo's hook:
 
 ```bash
+source bru.sh
 sweep_command bash shfmt shellcheck
-
 ./poli.sh
 ```
 
@@ -28,8 +29,8 @@ or we need to make sure that a git repo is clean before we do operations.
 e.g. before we build, package and release some arbritrary software.
 
 ```bash
+source bru.sh
 cd to_a_repo
-
 sweep_command git scp zip
 sweep_git_is_clean
 

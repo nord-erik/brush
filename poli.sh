@@ -46,8 +46,7 @@ _static_checks() {
 }
 
 _run_all_tests() {
-  printf "%s\n" "$("$POLISH_ROOT"/test/all.sh)"
-  return $?
+  printf "%s\n" "$("$POLISH_ROOT"/test/all.sh true)"
 }
 
 _illustrate_test_report() {
