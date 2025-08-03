@@ -37,6 +37,7 @@ reading to get a rundown on some of them.
 a test is defined per assertion basis. therefore it is only allowed to have one assert per test
 case. this is very important because CI/CD can and will count how many tests exists by grepping
 for `brush_assert` invocations.
+this implies some insanity, such as parameterised tests are not possible.
 
 ### catching exits
 

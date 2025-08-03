@@ -2,9 +2,10 @@
 
 # this script serves as a sort fo import all sweeps / import the whole lib
 # source this file and all sweeps gets loaded
-#
-# you can pass optinally one and only one argument to the source
-# the passed argument will be the name for the script in log file
+# you can optinally pass one and only one argument to the source
+# the passed argument will be the name for the script in log fil
+# when build script runs, this is the main entry point for the build
+# the script as a whole gets minified and all sources gets in-place replaced by the target scripts contents
 
 BRUSH_APP_NAME=$1
 if [ -z "$BRUSH_APP_NAME" ]; then
