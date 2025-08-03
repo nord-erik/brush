@@ -9,7 +9,7 @@ export TEST_ROOT
 run_test() {
   local test_file=$1
   # shellcheck disable=SC1090
-  (source "$TEST_ROOT/$test_file" 2> /dev/null) || printf "%s\n" "$test_file CRASHED!"
+  (source "$TEST_ROOT/$test_file") || printf "%s\n" "$test_file CRASHED!"
 }
 
 # source to keep it as one single process, meaning CI can check if it finished properly
