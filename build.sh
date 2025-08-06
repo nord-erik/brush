@@ -14,11 +14,10 @@ _clear_build() {
 }
 
 _collect_brush() {
-    # populate the file
+    # populate the file...
+    # grep non-comments, non-empty lines. include shebang
     grep -v -E "^#[^\!]|^#$|^$" src/brush.sh \
-        |
-        # grep non-comments, non-empty lines. include shebang
-        sed '/BRUSH_ROOT=/a BRUSH_ROOT="$BRUSH_ROOT/src"' > bru.sh # correct root variables by injecting "src"
+        | sed '/BRUSH_ROOT=/a BRUSH_ROOT="$BRUSH_ROOT/src"' > bru.sh # correct root variables by injecting "src"
 }
 
 _staticalise_sources() {
