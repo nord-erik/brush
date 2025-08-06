@@ -25,5 +25,12 @@ jobs:
           sudo rm /var/lib/man-db/auto-update
           sudo apt-get install shfmt shellcheck
 
+      - name: get ubuntu env
+        run: |
+          echo ***SHFMT***
+          shfmt --version
+          echo ***SHELLCHECK***
+          shellcheck --version
+
       - name: execute hooking script
         run: ./poli.sh VERBOSE

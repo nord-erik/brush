@@ -41,6 +41,7 @@ _static_checks() {
     sweep_ok $? "check formatter issues -- apply with 'shfmt --write .'" 3
 
     ./build.sh
+    git diff
     sweep_git_is_clean
 }
 
