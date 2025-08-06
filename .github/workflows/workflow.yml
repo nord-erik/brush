@@ -31,6 +31,8 @@ jobs:
           shfmt --version
           echo ***SHELLCHECK***
           shellcheck --version
+          echo ***CONFIG***
+          cat .editorconfig
 
       - name: execute hooking script
         run: ./poli.sh VERBOSE
