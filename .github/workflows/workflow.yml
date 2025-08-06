@@ -21,10 +21,7 @@ jobs:
 
       - name: install test deps
         run: |
-          sudo printf "%s\n" "set man-db/auto-update false" | sudo debconf-communicate
-          sudo rm /var/lib/man-db/auto-update
-          sudo snap install shfmt
-          sudo apt-get install shellcheck
+          sudo snap install shfmt shellcheck
 
       - name: get ubuntu env
         run: |
