@@ -5,66 +5,66 @@ brush_test_fixture "$FIXTURE_NAME"
 
 # this is different for diffrent systems
 _caputre_log() {
-  journalctl -n 15 --reverse --no-pager
+    journalctl -n 15 --reverse --no-pager
 }
 
 test_log_can_print() {
-  local log_fn=$1 log_input=$2 expected_output=$3 should_stderr=$4
-  local buf_terminal
+    local log_fn=$1 log_input=$2 expected_output=$3 should_stderr=$4
+    local buf_terminal
 
-  if [ "$should_stderr" = "true" ]; then
-    buf_terminal=$($log_fn "$log_input" 2>&1 > /dev/null)
-  else
-    buf_terminal=$($log_fn "$log_input")
-  fi
+    if [ "$should_stderr" = "true" ]; then
+        buf_terminal=$($log_fn "$log_input" 2>&1 > /dev/null)
+    else
+        buf_terminal=$($log_fn "$log_input")
+    fi
 
-  # shellcheck disable=SC2181
-  if test "$buf_terminal" = "$expected_output"; then
-    return 0
-  fi
+    # shellcheck disable=SC2181
+    if test "$buf_terminal" = "$expected_output"; then
+        return 0
+    fi
 
-  printf "%s\n" "got:  [$buf_terminal]"
-  printf "%s\n" "want: [$expected_output]"
+    printf "%s\n" "got:  [$buf_terminal]"
+    printf "%s\n" "want: [$expected_output]"
 
-  return 1
+    return 1
 }
 
 test_log_can_logger() {
-  local log_fn=$1 log_input=$2
-  local buf_logger expected_keyword expected_log
+    local log_fn=$1 log_input=$2
+    local buf_logger expected_keyword expected_log
 
-  case $log_fn in
-  brush_error)
-    expected_keyword="(ERROR)"
-    ;;
-  brush_warning)
-    expected_keyword="(WARNING)"
-    ;;
-  brush_notice)
-    expected_keyword="(NOTICE)"
-    ;;
-  brush_log)
-    expected_keyword="(INFO)"
-    ;;
-  *)
-    expected_keyword="unknown_logger_under_test"
-    ;;
-  esac
+    case $log_fn in
+        brush_error)
+            expected_keyword="(ERROR)"
+            ;;
+        brush_warning)
+            expected_keyword="(WARNING)"
+            ;;
+        brush_notice)
+            expected_keyword="(NOTICE)"
+            ;;
+        brush_log)
+            expected_keyword="(INFO)"
+            ;;
+        *)
+            expected_keyword="unknown_logger_under_test"
+            ;;
+    esac
 
-  # produce the logs and capture it
-  $log_fn "$log_input" > /dev/null
-  buf_logger="$(_caputre_log)"
-  expected_log="$expected_keyword $log_input"
+    # produce the logs and capture it
+    $log_fn "$log_input" > /dev/null
+    buf_logger="$(_caputre_log)"
+    expected_log="$expected_keyword $log_input"
 
-  # shellcheck disable=SC2181
-  if printf "%s\n" "$buf_logger" | grep --quiet "$expected_log"; then
-    return 0
-  fi
+    # shellcheck disable=SC2181
+    if printf "%s\n" "$buf_logger" | grep --quiet "$expected_log"; then
+        return 0
+    fi
 
-  printf "%s\n" "got:  [$buf_logger]"
-  printf "%s\n" "want: [$expected_log]"
+    printf "%s\n" "got:  [$buf_logger]"
+    printf "%s\n" "want: [$expected_log]"
 
-  return 1
+    return 1
 }
 
 # verify api can load

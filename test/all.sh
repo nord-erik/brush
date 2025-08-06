@@ -8,9 +8,9 @@ export TEST_ROOT
 BRUSH_TEST_PRINTS_PASSES=$1
 
 run_test() {
-  local test_file=$1
-  # shellcheck disable=SC1090
-  (source "$TEST_ROOT/$test_file" 2> /dev/null) || printf "%s\n" "$test_file CRASHED!"
+    local test_file=$1
+    # shellcheck disable=SC1090
+    (source "$TEST_ROOT/$test_file" 2> /dev/null) || printf "%s\n" "$test_file CRASHED!"
 }
 
 # source to keep it as one single process, meaning CI can check if it finished properly

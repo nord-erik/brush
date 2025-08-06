@@ -4,18 +4,18 @@
 # you just pass $? and a message, sweep_ok manage the rest.
 
 sweep_ok() {
-  local code=$1 msg=$2 custom_error_code=$3
+    local code=$1 msg=$2 custom_error_code=$3
 
-  if [ -z "$custom_error_code" ]; then
-    custom_error_code=1
-  fi
-
-  # shellcheck disable=SC2086
-  if [ $code -ne 0 ]; then
-    if [ -n "$msg" ]; then
-      brush_error "$msg"
+    if [ -z "$custom_error_code" ]; then
+        custom_error_code=1
     fi
 
-    exit $custom_error_code
-  fi
+    # shellcheck disable=SC2086
+    if [ $code -ne 0 ]; then
+        if [ -n "$msg" ]; then
+            brush_error "$msg"
+        fi
+
+        exit $custom_error_code
+    fi
 }

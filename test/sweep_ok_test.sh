@@ -13,49 +13,49 @@ test $? -eq 0
 brush_assert $? $FIXTURE_NAME "sweep_ok_returns_on_0"
 
 (
-  sweep_ok 1
-  return 0
+    sweep_ok 1
+    return 0
 ) # capture the exit
 test $? -eq 1
 brush_assert $? $FIXTURE_NAME "sweep_ok_exits_on_1"
 
 (
-  sweep_ok 1 "" 10
-  return 0
+    sweep_ok 1 "" 10
+    return 0
 ) # capture the exit
 test $? -eq 10
 brush_assert $? $FIXTURE_NAME "sweep_ok_exits_on_custom_error_code"
 
 # message propagation
 expect_no_message_to_print_nothing() {
-  local buf_err
+    local buf_err
 
-  buf_err=$( (sweep_ok 1) 2>&1)
-  test -z "$buf_err"
+    buf_err=$( (sweep_ok 1) 2>&1)
+    test -z "$buf_err"
 }
 
 expect_message_to_print() {
-  local buf_err
+    local buf_err
 
-  buf_err=$( (sweep_ok 1 "testing error prints") 2>&1 > /dev/null)
-  test -n "$buf_err"
+    buf_err=$( (sweep_ok 1 "testing error prints") 2>&1 > /dev/null)
+    test -n "$buf_err"
 }
 
 expect_message_to_be_stderr() {
-  local buf_out buf_err
+    local buf_out buf_err
 
-  buf_out=$( (sweep_ok 1 "deliberate testing error") 2> /dev/null)
-  buf_err=$( (sweep_ok 1 "deliberate testing error") 2>&1 > /dev/null)
-  test -z "$buf_out" && test -n "$buf_err"
+    buf_out=$( (sweep_ok 1 "deliberate testing error") 2> /dev/null)
+    buf_err=$( (sweep_ok 1 "deliberate testing error") 2>&1 > /dev/null)
+    test -z "$buf_out" && test -n "$buf_err"
 }
 
 expect_message_to_be_equal() {
-  local msg expected buf_err
+    local msg expected buf_err
 
-  msg="testing possibility to pass a proper string"
-  expected="${BRUSH_RED}error:${BRUSH_CLEAR} $msg"
-  buf_err=$( (sweep_ok 1 "$msg") 2>&1 > /dev/null)
-  test "$expected" = "$buf_err"
+    msg="testing possibility to pass a proper string"
+    expected="${BRUSH_RED}error:${BRUSH_CLEAR} $msg"
+    buf_err=$( (sweep_ok 1 "$msg") 2>&1 > /dev/null)
+    test "$expected" = "$buf_err"
 }
 
 expect_no_message_to_print_nothing

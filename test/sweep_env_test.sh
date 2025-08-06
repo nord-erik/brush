@@ -10,8 +10,8 @@ brush_assert $? $FIXTURE_NAME "sweep_env_defined"
 
 unset BRUSH_TEST_ENV_VAR
 (
-  sweep_env BRUSH_TEST_ENV_VAR
-  return 0
+    sweep_env BRUSH_TEST_ENV_VAR
+    return 0
 ) # capture exit
 test $? -eq 1
 brush_assert $? $FIXTURE_NAME "sweep_env_when_not_defined"

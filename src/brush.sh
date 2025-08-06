@@ -9,7 +9,7 @@
 
 BRUSH_APP_NAME=$1
 if [ -z "$BRUSH_APP_NAME" ]; then
-  BRUSH_APP_NAME="bru.sh"
+    BRUSH_APP_NAME="bru.sh"
 fi
 export BRUSH_APP_NAME
 
