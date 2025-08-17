@@ -55,6 +55,12 @@ brush_notice "successfully sourced from curl"
 sweep_ok $?
 ```
 
+finally, remember you can pass a custom app name to brush to identify your script:
+
+```bash
+source <(curl --silent https://raw.githubusercontent.com/nord-erik/brush/refs/tags/v0.0.1/bru.sh) <YOUR_NAME_HERE>
+```
+
 # testing
 
 the CI/CD workloads will always test pushed commits. but if you want to test locally, you can do so:
