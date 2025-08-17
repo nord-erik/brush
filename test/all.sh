@@ -23,3 +23,4 @@ run_test sweep_nok_test.sh
 run_test sweep_ok_test.sh
 run_test sweep_sudo_test.sh
 run_test sweep_sudo_as_root_test.sh
+run_test sweep_venv_test.sh
