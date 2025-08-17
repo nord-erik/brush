@@ -20,7 +20,7 @@ VIRTUAL_ENV="isset"
 sweep_is_venv
 brush_assert $? $FIXTURE_NAME "sweep_is_venv_when_defined"
 
-BRUSH_TEST_ENV_VAR=""
+VIRTUAL_ENV=""
 (
     sweep_is_venv
     return 0

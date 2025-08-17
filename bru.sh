@@ -129,6 +129,13 @@ brush_error "you must be root in order to run $final_app_name, please re-run wit
 esac
 exit 1
 }
+sweep_is_venv(){
+local current_venv_var="VIRTUAL_ENV"
+test ${!current_venv_var+1}
+sweep_ok $? "you are not in a virtual python evnironment, please make sure you are"
+test -n "$VIRTUAL_ENV"
+sweep_ok $? "you are not in a virtual python evnironment, please make sure you are"
+}
 sweep_git_is_clean(){
 local git_status
 sweep_git_is_init

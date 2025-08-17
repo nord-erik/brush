@@ -28,6 +28,7 @@ source "$SWEEPS_ROOT/env.sh"
 source "$SWEEPS_ROOT/nok.sh"
 source "$SWEEPS_ROOT/ok.sh"
 source "$SWEEPS_ROOT/sudo.sh"
+source "$SWEEPS_ROOT/venv.sh"
 
 # git add on
 source "$SWEEPS_ROOT/git/is_clean.sh"
