@@ -102,8 +102,8 @@ fi
 if [ "$should_be" = "true" ]||[ "$should_be" = "false" ];then
 true
 else
-brush_error "sweep_sudo optional 1st argument must be omitted, true or false"
-exit 1
+brush_error "sweep_sudo optional 1st argument must be either: true or false, default false"
+exit 2
 fi
 if [ "$(id -u)" -eq 0 ];then
 is_root="true"

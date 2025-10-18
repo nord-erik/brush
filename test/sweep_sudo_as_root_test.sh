@@ -39,12 +39,46 @@ if can_sudo; then
       $(declare -f _brush_terminal_print);\
       $(declare -f brush_error);\
       $(declare -f sweep_sudo);\
+      sweep_sudo true\
+    "
+    ) # capture the exit
+    brush_assert $? $FIXTURE_NAME "sweep_sudo_accepts_explicit_default_arg_when_should_root"
+else
+    brush_skip $FIXTURE_NAME "sweep_sudo_returns_when_is_root"
+fi
+
+if can_sudo; then
+    # pass along brush_error and sweep_sudo to child process
+    (
+        sudo bash -c "\
+      $(declare -f _brush_system_logger);\
+      $(declare -f _brush_terminal_print);\
+      $(declare -f brush_error);\
+      $(declare -f sweep_sudo);\
       sweep_sudo false\
     "
         return $?
     ) # capture the exit
     test $? -eq 1
     brush_assert $? $FIXTURE_NAME "sweep_sudo_exits_when_is_root_but_should_not"
+else
+    brush_skip $FIXTURE_NAME "sweep_sudo_exits_when_is_root_but_should_not"
+fi
+
+if can_sudo; then
+    # pass along brush_error and sweep_sudo to child process
+    (
+        sudo bash -c "\
+      $(declare -f _brush_system_logger);\
+      $(declare -f _brush_terminal_print);\
+      $(declare -f brush_error);\
+      $(declare -f sweep_sudo);\
+      sweep_sudo yxa\
+    "
+        return $?
+    ) # capture the exit
+    test $? -eq 2
+    brush_assert $? $FIXTURE_NAME "sweep_sudo_rejects_invalid_argument"
 else
     brush_skip $FIXTURE_NAME "sweep_sudo_exits_when_is_root_but_should_not"
 fi

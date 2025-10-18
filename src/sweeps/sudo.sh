@@ -23,8 +23,8 @@ sweep_sudo() {
     if [ "$should_be" = "true" ] || [ "$should_be" = "false" ]; then
         true
     else
-        brush_error "sweep_sudo optional 1st argument must be omitted, true or false"
-        exit 1
+        brush_error "sweep_sudo optional 1st argument must be either: true or false, default false"
+        exit 2
     fi
 
     # actual logic to determine if OK -- first stringify the "id -u"

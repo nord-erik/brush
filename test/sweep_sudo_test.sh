@@ -12,7 +12,7 @@ brush_assert $? $FIXTURE_NAME "sweep_sudo_defined"
     sweep_sudo error
     return 0
 ) # capture the exit
-test $? -eq 1
+test $? -eq 2
 brush_assert $? $FIXTURE_NAME "sweep_sudo_argument_validity_error"
 
 (
