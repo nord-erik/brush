@@ -90,9 +90,3 @@ git -- to test git addon
 ```
 sudo dnf install git
 ```
-
-# comment on name convention
-
-all file names that begins with "\_" are meant to always be sourced and never run bare.
-all functions that begins with "\_" are meant to be used internally and are not part of external API.
-you might find cases where you can safely run "\_" scripts or functions, but it is not supported.
