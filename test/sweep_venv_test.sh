@@ -4,7 +4,7 @@
 FIXTURE_NAME="sweep_venv"
 brush_test_fixture "$FIXTURE_NAME"
 
-# verify api can load
+# verify API can load
 brush_defined sweep_is_venv
 brush_assert $? $FIXTURE_NAME "sweep_is_venv_defined"
 

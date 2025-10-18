@@ -1,9 +1,9 @@
 #!/bin/env bash
 
-# this script serves as a sort fo import all sweeps / import the whole lib
+# this script serves as a sort of import all sweeps / import the whole lib
 # source this file and all sweeps gets loaded
-# you can optinally pass one and only one argument to the source
-# the passed argument will be the name for the script in log fil
+# you can optionally pass one and only one argument to the source
+# the passed argument will be the name for the script in log file
 # when build script runs, this is the main entry point for the build
 # the script as a whole gets minified and all sources gets in-place replaced by the target scripts contents
 

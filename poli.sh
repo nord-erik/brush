@@ -1,11 +1,11 @@
 #!/bin/env bash
 
-# error codes signifiy outcomes:
+# error codes signify outcomes:
 #   0 => all ok
 #   1 => dependencies not available
 #   2 => shellcheck nags
 #   3 => shfmt nags
-#   4 => checked in buid is not latest
+#   4 => checked in build is not latest
 #   5 => tests fail
 # 112 => your file system does not work
 
@@ -58,7 +58,7 @@ _illustrate_test_report() {
     printf "%s" "$test_report" | grep --quiet "CRASHED"
     sweep_nok $? "tests are crashing" 5
 
-    # the space after brush_assert is imporant to not include brush_assert's declaration
+    # the space after brush_assert is important to not include brush_assert's declaration
     number_found=$(grep --dereference-recursive --include="*.sh" "brush_assert " "$POLISH_ROOT"/test | wc --lines)
     number_executed=$(printf "%s" "$test_report" | grep --extended-regexp "(OK|SKIP)" | wc --lines)
 

@@ -2,8 +2,8 @@
 
 declare -A temporary_git_paths
 
-# because of mac vs linux differences we need to try twice
-# linux version first, if that fails (because we are on mac), then do mac version
+# because of Mac vs Linux differences we need to try twice
+# Linux version first, if that fails (because we are on Mac), then do Mac version
 _create_temporary_dir() {
     local created_dir
 
@@ -16,7 +16,7 @@ setup_file_tree() {
     temporary_git_paths[a_git_repo]=$(_create_temporary_dir)
     temporary_git_paths[a_git_repo_dirty]=$(_create_temporary_dir)
     temporary_git_paths[a_git_repo_with_branches]=$(_create_temporary_dir)
-    # temporary_git_paths[a_git_repo_with_merge_confict]=$(_create_temporary_dir)
+    # temporary_git_paths[a_git_repo_with_merge_conflict]=$(_create_temporary_dir)
     # temporary_git_paths[a_git_repo_with_rebase_flow]=$(_create_temporary_dir)
 
     for key in "${!temporary_git_paths[@]}"; do

@@ -3,7 +3,7 @@
 FIXTURE_NAME="sweep_nok"
 brush_test_fixture "$FIXTURE_NAME"
 
-# verify api can load
+# verify API can load
 brush_defined sweep_nok
 brush_assert $? $FIXTURE_NAME "sweep_nok_defined"
 

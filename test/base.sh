@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 # this file contains utilities and variables and etc that is useful for all testing
-# all test scripts should soruce this to gain the common utilities
+# all test scripts should source this to gain the common utilities
 # sort of like a base test class for all other tests
 # also makes sure that the test fixture has brush loaded in the process
 

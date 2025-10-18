@@ -3,8 +3,8 @@
 FIXTURE_NAME="logger"
 brush_test_fixture "$FIXTURE_NAME"
 
-# this is different for diffrent systems
-_caputre_log() {
+# this is different for different systems
+_capture_log() {
     journalctl -n 15 --reverse --no-pager
 }
 
@@ -53,7 +53,7 @@ test_log_can_logger() {
 
     # produce the logs and capture it
     $log_fn "$log_input" > /dev/null
-    buf_logger="$(_caputre_log)"
+    buf_logger="$(_capture_log)"
     expected_log="$expected_keyword $log_input"
 
     # shellcheck disable=SC2181
@@ -67,7 +67,7 @@ test_log_can_logger() {
     return 1
 }
 
-# verify api can load
+# verify API can load
 brush_defined brush_error
 brush_assert $? $FIXTURE_NAME "brush_error_defined"
 

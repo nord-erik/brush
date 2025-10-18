@@ -3,7 +3,7 @@
 FIXTURE_NAME="sweep_sudo"
 brush_test_fixture "$FIXTURE_NAME"
 
-# verify api can load and argument guard
+# verify API can load and argument guard
 brush_defined sweep_sudo
 brush_assert $? $FIXTURE_NAME "sweep_sudo_defined"
 

@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-# tests the whole git addon -- to let all sweeps use the same tmp file structure
+# tests the whole git add on -- to let all sweeps use the same tmp file structure
 
 FIXTURE_NAME="sweep_git"
 brush_test_fixture "$FIXTURE_NAME"
@@ -11,7 +11,7 @@ source "$TEST_ROOT/sweep_git_test_fixture.sh"
 # make sure we have git and mktemp...
 sweep_command git mktemp
 
-# verify api can load
+# verify API can load
 brush_defined sweep_git_is_clean
 brush_assert $? $FIXTURE_NAME "sweep_git_is_clean"
 
