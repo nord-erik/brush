@@ -129,13 +129,6 @@ brush_error "you must be root in order to run $final_app_name, please re-run wit
 esac
 exit 1
 }
-sweep_is_venv(){
-local current_venv_var="VIRTUAL_ENV"
-test ${!current_venv_var+1}
-sweep_ok $? "you are not in a virtual python environment, please make sure you are"
-test -n "$VIRTUAL_ENV"
-sweep_ok $? "you are not in a virtual python environment, please make sure you are"
-}
 sweep_git_is_clean(){
 local git_status
 sweep_git_is_init
@@ -157,5 +150,12 @@ sweep_git_is_init
 current_branch="$(git rev-parse --abbrev-ref HEAD)"
 test "$current_branch" == "$expected_branch"
 sweep_ok $? "expected branch '$expected_branch' but was '$current_branch' in git: $(pwd)"
+}
+sweep_is_venv(){
+local current_venv_var="VIRTUAL_ENV"
+test ${!current_venv_var+1}
+sweep_ok $? "you are not in a virtual python environment, please make sure you are"
+test -n "$VIRTUAL_ENV"
+sweep_ok $? "you are not in a virtual python environment, please make sure you are"
 }
 export BRUSH_APP_NAME BRUSH_BLACK BRUSH_RED BRUSH_GREEN BRUSH_YELLOW BRUSH_BLUE BRUSH_MAGENTA BRUSH_CYAN BRUSH_WHITE BRUSH_LIGHT_BLACK BRUSH_LIGHT_RED BRUSH_LIGHT_GREEN BRUSH_LIGHT_YELLOW BRUSH_LIGHT_BLUE BRUSH_LIGHT_MAGENTA BRUSH_LIGHT_CYAN BRUSH_LIGHT_WHITE BRUSH_CLEAR

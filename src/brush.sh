@@ -13,27 +13,26 @@ if [ -z "$BRUSH_APP_NAME" ]; then
 fi
 export BRUSH_APP_NAME
 
-BRUSH_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
-SWEEPS_ROOT="$BRUSH_ROOT/sweeps"
+SWEEPS_ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)/sweeps
 
-# make sure we load the constants first
-source "$BRUSH_ROOT/consts.sh"
-
-# then we load the logging utilities
-source "$BRUSH_ROOT/logger.sh"
+# make sure we load the constants and logger utility first
+source "$SWEEPS_ROOT/consts.sh"
+source "$SWEEPS_ROOT/logger.sh"
 
 # sweeps (order might matter -- have not tested different order):
-source "$SWEEPS_ROOT/command.sh"
-source "$SWEEPS_ROOT/env.sh"
-source "$SWEEPS_ROOT/nok.sh"
-source "$SWEEPS_ROOT/ok.sh"
-source "$SWEEPS_ROOT/sudo.sh"
-source "$SWEEPS_ROOT/venv.sh"
+## common
+source "$SWEEPS_ROOT/common/command.sh"
+source "$SWEEPS_ROOT/common/env.sh"
+source "$SWEEPS_ROOT/common/nok.sh"
+source "$SWEEPS_ROOT/common/ok.sh"
+source "$SWEEPS_ROOT/common/sudo.sh"
 
-# git add on
+## git add on
 source "$SWEEPS_ROOT/git/is_clean.sh"
 source "$SWEEPS_ROOT/git/is_init.sh"
 source "$SWEEPS_ROOT/git/is_on.sh"
 
-unset BRUSH_ROOT
+## python add on
+source "$SWEEPS_ROOT/python/venv.sh"
+
 unset SWEEPS_ROOT
