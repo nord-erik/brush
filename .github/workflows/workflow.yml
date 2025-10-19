@@ -24,4 +24,4 @@ jobs:
           sudo snap install shfmt shellcheck
 
       - name: execute hooking script
-        run: ./poli.sh VERBOSE
+        run: ./poli.sh true

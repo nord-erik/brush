@@ -12,7 +12,7 @@ fi
 
 TEST_APP_NAME="bru.sh(test)"
 source "$TEST_ROOT/../bru.sh" "$TEST_APP_NAME"
-BRUSH_TEST_PRINTS_PASSES=$1
+VERBOSE_TESTING=$1
 
 # report that a test has failed
 _brush_report_fail() {
@@ -42,7 +42,7 @@ brush_assert() {
     if [ $code -ne 0 ]; then
         _brush_report_fail "$test_file_name" "$test_name"
     else
-        if [ "$BRUSH_TEST_PRINTS_PASSES" = "true" ]; then
+        if [ "$VERBOSE_TESTING" = "true" ]; then
             _brush_report_pass "$test_file_name" "$test_name"
         fi
     fi

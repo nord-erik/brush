@@ -66,10 +66,10 @@ source <(curl --silent https://raw.githubusercontent.com/nord-erik/brush/refs/ta
 the CI/CD workloads will always test pushed commits. but if you want to test locally, you can do so:
 
 ```
-./poli.sh [VERBOSE]
+./poli.sh [verbose_output]
 ```
 
-where verbose is optional, but if it is the literal word "VERBOSE" you will see more output
+where `verbose_output` is optional, but if it is the literal word "true" you will see more output
 
 ## test requirements
 

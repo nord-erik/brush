@@ -73,7 +73,7 @@ _polish() {
     _static_checks
     test_report=$(_run_all_tests)
 
-    if [ "$verbose" == "VERBOSE" ]; then
+    if [ "$verbose" == true ]; then
         printf "%s\n" "$test_report"
     fi
 
