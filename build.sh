@@ -20,6 +20,7 @@ _collect_brush() {
         | sed '/BRUSH_ROOT=/a BRUSH_ROOT="$BRUSH_ROOT/src"' > bru.sh # correct root variables by injecting "src"
 }
 
+# make sources static
 _staticalise_sources() {
     local repo_root=$1
     local build_brush_root build_sweeps_root build_sources build_sources_array source_file source_file_relative_path
